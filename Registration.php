@@ -7,7 +7,7 @@
 		Test Case 4: Passwords length != 6
 		Test Case 5: Telephone number length != 10 
 		Test Case 6: Telephone number not a number
-		Test Case 7: all conditions met - Registation success
+		Test Case 7: all conditions met - Registration success
 	
 	*/
 	
@@ -104,18 +104,18 @@
 					if(TelephoneTest($phone) == 0){
 						
 						//SQL INSERT Query
-						$RegistationSQL = "INSERT INTO `users`(`Username`, `Password`, `Firstname`, `Surname`, `AddressLine_1`, `AddressLine_2`, `City`, `Telephone`) VALUES ('$user', '$pswd1', '$fn', '$sn', '$add1', '$add2', '$city', '$phone')";
+						$RegistrationSQL = "INSERT INTO `users`(`Username`, `Password`, `Firstname`, `Surname`, `AddressLine_1`, `AddressLine_2`, `City`, `Telephone`) VALUES ('$user', '$pswd1', '$fn', '$sn', '$add1', '$add2', '$city', '$phone')";
 			
-						$Registation = mysqli_query($db, $RegistationSQL);
-						if($Registation == false){
+						$Registration = mysqli_query($db, $RegistrationSQL);
+						if($Registration == false){
 							echo "DataBase Failure: Error Code 2";
 							echo "<br>";
-							echo "Registation Failure";
+							echo "Registration Failure";
 				
 						}
 						else{
-							echo "Registation Complete";
-							header('Location: index.php')
+							echo "Registration Complete";
+							header('Location: index.php');
 						}
 			
 					}
