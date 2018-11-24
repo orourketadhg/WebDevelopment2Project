@@ -3,21 +3,30 @@
 
 	if($_SESSION['LoggedIn'] == true) {
 		
-		echo '<form method="post">';
-		echo '<input type="submit" value="Logout" name="Logout">';
-		echo '</form>';
-		
 		echo "In Session";
-		$result = $_POST['Logout'];
 		
-		if($result){
-			session_destroy();
-			header ('Location: index.php');
+		if(isset($_POST['Logout'])){
+			$result = $_POST['Logout'];
+			header ('Location: Logout.php');
 			
+		}
+		else {
+			$result = null;
+
 		}
 		
 	}
 	else {
-		echo "Please Log In";
+		header('Location: index.php');
+
 	}
+
 ?>
+
+<html>
+	<form method="post">
+		<input type="submit" value="Logout" name="Logout">
+
+	</form>
+
+</html>
