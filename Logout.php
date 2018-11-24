@@ -1,18 +1,24 @@
 <?php
     session_start();
-    if (isset($_POST['destroySession'])) {
-        $temp = $_POST['destroySession'];
-        session_destroy();
-        header('Location: index.php');
+
+    // make sure session is logged in to be able to log out
+    if($_SESSION['LoggedIn']) {
+        if (isset($_POST['destroySession'])) {
+            $temp = $_POST['destroySession'];
+            session_destroy();
+            header('Location: index.php');
+
+        }
+        else {
+            $temp = null;
+
+        }
 
     }
     else {
-        $temp = null;
-
+        header('Location: index.php');
 
     }
-
-
 
 ?>
 

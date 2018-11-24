@@ -1,6 +1,7 @@
 <?php
 	session_start();
 
+	//check session is logged in
 	if($_SESSION['LoggedIn'] == true) {
 		
 		echo "In Session";
