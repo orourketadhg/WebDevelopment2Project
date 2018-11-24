@@ -5,7 +5,11 @@
 	if($_SESSION['LoggedIn'] == true) {
 		
 		echo "In Session";
-		
+
+		//SQL required for showing all books
+		$bookSQL = "SELECT ISBN, BookTitle, Author, Year, CategoryID, Reserved FROM Book";
+		$reserveBookSQL = "UPDATE Book SET (Reserved = 'Y') WHERE ISBN = '$ISBN';";
+
 		if(isset($_POST['Logout'])){
 			$result = $_POST['Logout'];
 			header ('Location: Logout.php');
