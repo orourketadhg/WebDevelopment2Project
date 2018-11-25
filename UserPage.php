@@ -2,6 +2,7 @@
 
     //Todo : add link to search page
     //Todo : add link to users reserved books
+    //Todo : Add ability to reserve book
 
     //start the session
 	session_start();
