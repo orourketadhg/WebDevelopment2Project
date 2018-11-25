@@ -2,6 +2,7 @@
 
     // Todo : Add Display Reserved Books functionality - only 5 books per page
     // Todo : Add un-reserve book functionality
+    // Todo : Add logout functionality
 
     //start session
     session_start();

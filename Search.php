@@ -1,6 +1,7 @@
 <?php
     //Todo : add search functionality
     //Todo : Only display 5 books per page of searched books
+    // Todo : Add logout functionality
 
     //start session
     session_start();

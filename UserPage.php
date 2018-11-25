@@ -10,6 +10,15 @@
 	//check session is logged in
 	if($_SESSION['LoggedIn'] == true) {
 
+	    $next = 5;
+	    $previous = 0;
+
+	    echo $next;
+	    echo $previous;
+
+        // Turn SQL query result into usable format
+        $bookArraySQL = Array();
+
 	    // open database connection
         $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB');
 
@@ -29,8 +38,6 @@
         }
 		else {
 
-		    // Turn SQL query result into usable format
-            $bookArraySQL = Array();
             // add each row array to a array (2D array)
             while($row = mysqli_fetch_row($books)) {
                 $bookArraySQL[] = $row;
@@ -54,7 +61,7 @@
             // Todo : add so user can click button to see next 5 books
 
             // Loop through books printing 5 to the page at any one time
-            for($i = 0; $i < 5; $i++) {
+            for($i = $previous; $i < $next; $i++) {
 
                 echo "<tr>";
 
@@ -71,6 +78,18 @@
             }
 
             echo "</table>";
+
+        }
+
+		if (isset($_POST['Previous']) && $previous != 0) {
+            $next = $next - 5;
+            $previous = $previous - 5;
+
+        }
+
+        if (isset($_POST['Next']) && $next != count($bookArraySQL)) {
+            $next = $next + 5;
+            $previous = $previous + 5;
 
         }
 
@@ -99,8 +118,10 @@
 
 
 <html>
-    <!-- Logout Button html -->
+    <!-- Logout, previous and next Button html -->
 	<form method="post">
+        <input type="submit" value="Previous" name="Previous">
+        <input type="submit" value="Next" name="Next">
 		<input type="submit" value="Logout" name="Logout">
 
 	</form>
