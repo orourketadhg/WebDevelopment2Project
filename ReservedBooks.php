@@ -2,7 +2,6 @@
 
     // Todo : Add Display Reserved Books functionality - only 5 books per page
     // Todo : Add un-reserve book functionality
-    // Todo : Add logout functionality
 
     //start session
     session_start();
@@ -22,6 +21,18 @@
 
         // close database connection
         mysqli_close($db);
+
+        //logout button is clicked go to confirmation page.
+        if(isset($_POST['Logout'])){
+            $result = $_POST['Logout'];
+            header ('Location: Logout.php');
+
+        }
+        else {
+            $result = null;
+
+        }
+
     }
     else {
         header('Location: index.php');
@@ -29,4 +40,10 @@
     }
 
 ?>
+
+<html>
+    <form method="post">
+        <input type="submit" value="Logout" name="Logout">
+    </form>
+</html>
 
