@@ -7,7 +7,9 @@
 		Test Case 4: Passwords length != 6
 		Test Case 5: Telephone number length != 10 
 		Test Case 6: Telephone number not a number
-		Test Case 7: all conditions met - Registration success
+		Test Case 7: mobile number not a number
+		Test Case 8: mobile number length != 7
+		Test Case 9: all conditions met - Registration success
 	
 	*/
 	
@@ -37,22 +39,22 @@
 	}
 	
 	
-	//Function to test Telephone number
-	function TelephoneTest($phone) {
+	//Function to test phone number length and is numeric
+	function TelephoneTest($phone, $num) {
 		
 		//Phone number not a number -- Test Case 6
 		if(is_numeric($phone) == false) {
 			echo "Input Failure: Error 4";
 			echo "<br>";
-			echo "Telephone Input is not a number";
+			echo "phone Input is not a number";
 			return 1;
 			
 		}
 		//Phone Number too long or too short -- Test Case 5
-		else if(strlen($phone) != 10){
+		else if(strlen($phone) != $num){
 			echo "Input Failure: Error 5";
 			echo "<br>";
-			echo "Telephone Input length is incorrect";
+			echo "phone Input length is incorrect";
 			return 1;
 			
 		}
@@ -68,7 +70,7 @@
 	$db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB');
 	
 	//Must have inputs -- Test Case 1
-	if(!empty($_POST['user']) && !empty($_POST['password1']) && !empty($_POST['password2']) && !empty($_POST['firstname'])&& !empty($_POST['surname'])&& !empty($_POST['address1'])&& !empty($_POST['address2']) && !empty($_POST['city'])&& !empty($_POST['phone'])){
+	if(!empty($_POST['user']) && !empty($_POST['password1']) && !empty($_POST['password2']) && !empty($_POST['firstname'])&& !empty($_POST['surname'])&& !empty($_POST['address1'])&& !empty($_POST['address2']) && !empty($_POST['city']) && !empty($_POST['mobile']) && !empty($_POST['telephone'])){
 		
 		//check if input a sql query command and assign to variable
 		$user = mysqli_real_escape_string($db, $_POST['user']);
@@ -79,8 +81,9 @@
 		$add1 = mysqli_real_escape_string($db, $_POST['address1']);
 		$add2 = mysqli_real_escape_string($db, $_POST['address2']);
 		$city = mysqli_real_escape_string($db, $_POST['city']);
-		$phone = mysqli_real_escape_string($db, $_POST['phone']);
-		
+		$phone = mysqli_real_escape_string($db, $_POST['mobile']);
+		$telephone = mysqli_real_escape_string($db, $_POST['telephone']);
+
 		//SQL Username Query
 		$sql_username = "SELECT Username FROM Users WHERE Username = '$user'";
 		$userLoginTest = mysqli_query($db, $sql_username);
@@ -101,23 +104,28 @@
 				if(PasswordTest($pswd1, $pswd2) == 0){
 					
 					//Test Case 5 and 6
-					if(TelephoneTest($phone) == 0){
-						
-						//SQL INSERT Query
-						$RegistrationSQL = "INSERT INTO `users`(`Username`, `Password`, `Firstname`, `Surname`, `AddressLine_1`, `AddressLine_2`, `City`, `Telephone`) VALUES ('$user', '$pswd1', '$fn', '$sn', '$add1', '$add2', '$city', '$phone')";
-			
-						$Registration = mysqli_query($db, $RegistrationSQL);
-						if($Registration == false){
-							echo "DataBase Failure: Error Code 2";
-							echo "<br>";
-							echo "Registration Failure";
-				
-						}
-						else{
-							echo "Registration Complete";
-							header('Location: index.php');
-						}
-			
+					if(TelephoneTest($phone, 10) == 0){
+
+					    //Test Case 7 and 8
+					    if(TelephoneTest($telephone, 7) == 0) {
+					        //SQL INSERT Query
+                            $RegistrationSQL = "INSERT INTO `users`(`Username`, `Password`, `Firstname`, `Surname`, `AddressLine_1`, `AddressLine_2`, `City`, `Telephone`, `Mobile`) VALUES ('$user', '$pswd1', '$fn', '$sn', '$add1', '$add2', '$city', '$telephone', '$phone');";
+
+                            $Registration = mysqli_query($db, $RegistrationSQL);
+                            if ($Registration == false) {
+                                echo "DataBase Failure: Error Code 2";
+                                echo "<br>";
+                                echo "Registration Failure";
+
+                            }
+                            else {
+                                echo "Registration Complete";
+                                header('Location: index.php');
+
+                            }
+
+					    }
+
 					}
 				
 				}
@@ -133,6 +141,7 @@
 		}
 		
 	}
+
 	
 	$sql_username = "SELECT Username FROM Users";
 	$userLoginTest = mysqli_query($db, $sql_username);
@@ -146,10 +155,8 @@
 
 ?>
 
-
-
-
 <pre>
+
 <form method="post">
 	Username: 
 	<input type="text" name="user">
@@ -160,7 +167,7 @@
 	confirm password:
 	<input type="text" name="password2">
 	
-	Firtname:
+	Firstname:
 	<input type="text" name="firstname">
 	
 	Surname:
@@ -175,8 +182,11 @@
 	City:
 	<input type="text" name="city">
 	
-	Phone Number:
-	<input type="text" name="phone">
+	Telephone Number:
+	<input type="text" name="telephone">
+
+        Mobile Number:
+	<input type="text" name="mobile">
 	
 	<input type="submit" value="Register">
 	
