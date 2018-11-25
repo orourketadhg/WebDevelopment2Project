@@ -37,8 +37,7 @@
         $user = $_SESSION['Username'];
 
         // SQL required for Reserved Books page
-        //Todo : Fix foreign key bug in linking books and reserved
-        $userReservedSQl = "SELECT ISBN, BookTitle, Author, Year, CategoryID, Reserved FROM Book JOIN Reserved  (ISBN) WHERE Username = '$user';";
+        $userReservedSQl = "SELECT ISBN, BookTitle, Author, Year, Edition, CategoryDesc, Reserved FROM Book JOIN Reserved USING (ISBN) JOIN Category USING (CategoryID) WHERE Username = '$user';";
 
         $SQLResult = mysqli_query($db, $userReservedSQl);
 
@@ -65,7 +64,7 @@
             echo "<th>Author</th>";
             echo "<th>Edition</th>";
             echo "<th>Year</th>";
-            echo "<th>Category ID</th>";
+            echo "<th>Category</th>";
             echo "<th>Reserved</th>";
             echo "</tr>";
 
