@@ -55,7 +55,7 @@
             echo "<th>Reserved</th>";
             echo "</tr>";
 
-            // Todo : add so user can click button to see next 5 books
+            // Todo : fix bug requiring 2 button presses for next and previous
 
             // Loop through books printing 5 to the page at any one time
             for($i = $_SESSION['Previous']; $i < $_SESSION['Next']; $i++) {

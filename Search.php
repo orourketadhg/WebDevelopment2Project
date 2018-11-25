@@ -5,6 +5,48 @@
     //start session
     session_start();
 
+    function ReserveBook($db, $user, $ISBN) {
+
+        $date = date("d-M-Y");
+
+        $ReserveBookSQl1 = "UPDATE Book SET Reserved = Y WHERE ISBN = '$ISBN';";
+        $ReserveBookSQl2 = "INSERT INTO Reserved (ISBN, Username, ReservedDate) VALUES ('$ISBN', '$user', '$date');";
+
+        $SQL1Result = mysqli_query($db, $ReserveBookSQl1);
+        $SQL2Result = mysqli_query($db, $ReserveBookSQl2);
+
+        if(!$SQL1Result) {
+            echo "Database Failure: Error Code 3";
+
+        }
+        else if (!$SQL2Result) {
+            echo "Database Failure: Error Code 4";
+
+        }
+
+    }
+
+    function UnreserveBook($db, $user, $ISBN) {
+
+        $date = date("d-M-Y");
+
+        $ReserveBookSQl1 = "UPDATE Book SET Reserved = N WHERE ISBN = '$ISBN';";
+        $ReserveBookSQl2 = "DELETE * FROM Reserved WHERE Username = '$user' AND ISBN = '$ISBN';";
+
+        $SQL3Result = mysqli_query($db, $ReserveBookSQl1);
+        $SQL4Result = mysqli_query($db, $ReserveBookSQl2);
+
+        if(!$SQL4Result) {
+            echo "Database Failure: Error Code 5";
+
+        }
+        else if (!$SQL4Result) {
+            echo "Database Failure: Error Code 6";
+
+        }
+
+    }
+
     // check if session is logged in
     if($_SESSION['LoggedIn']) {
 
@@ -81,9 +123,16 @@
 
                     //loop through each book printing its data
                     for ($j = 0; $j < 7; $j++) {
-                        echo "<td>";
-                        echo $bookArraySQL[$i][$j];
-                        echo "</td>";
+                        if ($j != 8) {
+                            echo "<td>";
+                            echo $bookArraySQL[$i][$j];
+                            echo "</td>";
+                        }
+                        else {
+                            echo "<td>";
+                            echo '<button type="button">Reserve</button>';
+                            echo "</td>";
+                        }
 
                     }
 
@@ -132,6 +181,7 @@
                 echo "<th>Year</th>";
                 echo "<th>Category ID</th>";
                 echo "<th>Reserved</th>";
+                echo "<th>Reserve Book</th>";
                 echo "</tr>";
 
                 for ($i = 0; $i < count($bookArraySQL); $i++) {
@@ -139,10 +189,17 @@
                     echo "<tr>";
 
                     //loop through each book printing its data
-                    for ($j = 0; $j < 7; $j++) {
-                        echo "<td>";
-                        echo $bookArraySQL[$i][$j];
-                        echo "</td>";
+                    for ($j = 0; $j < 8; $j++) {
+                        if ($j != 8) {
+                            echo "<td>";
+                            echo $bookArraySQL[$i][$j];
+                            echo "</td>";
+                        }
+                        else {
+                            echo "<td>";
+                            echo '<button type="button">Reserve</button>';
+                            echo "</td>";
+                        }
 
                     }
 

@@ -6,6 +6,27 @@
     //start session
     session_start();
 
+    function UnreserveBook($db, $user, $ISBN) {
+
+        $date = date("d-M-Y");
+
+        $ReserveBookSQl1 = "UPDATE Book SET Reserved = N WHERE ISBN = '$ISBN';";
+        $ReserveBookSQl2 = "DELETE * FROM Reserved WHERE Username = '$user' AND ISBN = '$ISBN';";
+
+        $SQL3Result = mysqli_query($db, $ReserveBookSQl1);
+        $SQL4Result = mysqli_query($db, $ReserveBookSQl2);
+
+        if(!$SQL4Result) {
+            echo "Database Failure: Error Code 2";
+
+        }
+        else if (!$SQL4Result) {
+            echo "Database Failure: Error Code 3";
+
+        }
+
+    }
+
     // check if session is logged in
     if($_SESSION['LoggedIn']) {
 
@@ -17,7 +38,14 @@
 
         // SQL required for Reserved Books page
         $userReservedSQl = "SELECT ISBN, BookTitle, Author, Year, CategoryID FROM Book JOIN Reserved ON (ISBN) WHERE Username = '$user';";
-        $userDeleteReservedSQL = "DELETE * FROM Reserved WHERE Usernamme = '$user' and ISBN = '$ISBN';";
+
+        $SQLResult = mysqli_query($db, $userReservedSQl);
+
+        if (!$SQLResult) {
+            echo "Database Failure: Error Code 1";
+
+        }
+
 
         // close database connection
         mysqli_close($db);
