@@ -11,6 +11,37 @@
         // open database connection
         $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB');
 
+        //getting drop down menu options form database
+        $dropdownCategoryList = "SELECT CategoryDesc FROM Category";
+
+        $CategoriesResult = mysqli_query($db, $dropdownCategoryList);
+
+        if ($CategoriesResult) {
+
+            //array creation
+            $Categories = Array();
+
+            //turn rows into a 1D array
+            While($row = mysqli_fetch_row($CategoriesResult)) {
+                $Categories[] = $row[0];
+            }
+
+            //test what is in Category list
+            print_r($Categories);
+
+            //create dropdown menu with options
+            echo "<select>";
+
+            //loop through and add categories from list
+            for ($i = 0; $i < count($Categories); $i++) {
+                echo '<option value="$Categories[i]></option>';
+
+            }
+
+            echo "</select>";
+
+        }
+
         if (isset($_POST['Search']) && !empty($_POST['SearchText'])){
 
             $SearchText = mysqli_real_escape_string($db, $_POST['SearchText']);
