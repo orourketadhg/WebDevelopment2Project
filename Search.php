@@ -19,7 +19,7 @@
         if ($CategoriesResult) {
 
             //array creation
-            $Categories = Array();
+            $Categories = Array('-- Chose a Category --');
 
             //turn rows into a 1D array
             While($row = mysqli_fetch_row($CategoriesResult)) {
@@ -27,14 +27,14 @@
             }
 
             //test what is in Category list
-            print_r($Categories);
+            //print_r($Categories);
 
             //create dropdown menu with options
-            echo "<select>";
+            echo "<select name='dropdown'>";
 
             //loop through and add categories from list
             for ($i = 0; $i < count($Categories); $i++) {
-                echo '<option value="$Categories[i]></option>';
+                echo '<option value=$Categories[i]></option>';
 
             }
 
@@ -99,6 +99,64 @@
 
             }
 
+
+        }
+        else if (isset($_POST['Search']) && isset($_POST['dropdown']) != '-- Chose a Category --'){
+
+            $dropdownOption = $_POST['dropdown'];
+
+            $searchSQLText = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryID, Reserved FROM Book JOIN Reserved WHERE CategoryDesc = '$dropdownOption';";
+
+            $Books = mysqli_query($db, $searchSQLText);
+
+            if ($Books) {
+
+                $bookArraySQL = Array();
+
+                // add each row array to a array (2D array)
+                while($row = mysqli_fetch_row($Books)) {
+                    $bookArraySQL[] = $row;
+
+                }
+
+                echo "<table border=1>";
+
+                // Table Column names
+                echo "<tr>";
+                echo "<th>ISBN</th>";
+                echo "<th>Book Title</th>";
+                echo "<th>Author</th>";
+                echo "<th>Edition</th>";
+                echo "<th>Year</th>";
+                echo "<th>Category ID</th>";
+                echo "<th>Reserved</th>";
+                echo "</tr>";
+
+                for ($i = 0; $i < count($bookArraySQL); $i++) {
+
+                    echo "<tr>";
+
+                    //loop through each book printing its data
+                    for ($j = 0; $j < 7; $j++) {
+                        echo "<td>";
+                        echo $bookArraySQL[$i][$j];
+                        echo "</td>";
+
+                    }
+
+                    echo "</tr>";
+
+                }
+
+                echo "</table>";
+
+            }
+            else {
+                echo "Database Failure: Error Code 1";
+                echo "<br>";
+                echo "Query Error";
+
+            }
 
         }
 
