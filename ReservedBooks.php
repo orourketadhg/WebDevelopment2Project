@@ -1,4 +1,7 @@
 <?php
+
+
+    //start session
     session_start();
 
     // check if session is logged in
