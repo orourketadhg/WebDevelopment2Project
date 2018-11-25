@@ -19,7 +19,7 @@
         if ($CategoriesResult) {
 
             //array creation
-            $Categories = Array('-- Chose a Category --');
+            $Categories = Array();
 
             //turn rows into a 1D array
             While($row = mysqli_fetch_row($CategoriesResult)) {
@@ -32,9 +32,11 @@
             //create dropdown menu with options
             echo "<select name='dropdown'>";
 
+            echo "<option value='empty'>-- Chose a Category --</option>";
+
             //loop through and add categories from list
             for ($i = 0; $i < count($Categories); $i++) {
-                echo '<option value=$Categories[i]></option>';
+                echo "<option value=$Categories[i]>$Categories[i]</option>";
 
             }
 
@@ -101,7 +103,7 @@
 
 
         }
-        else if (isset($_POST['Search']) && isset($_POST['dropdown']) != '-- Chose a Category --'){
+        else if (isset($_POST['Search']) && isset($_POST['dropdown']) != 'empty'){
 
             $dropdownOption = $_POST['dropdown'];
 
@@ -152,7 +154,7 @@
 
             }
             else {
-                echo "Database Failure: Error Code 1";
+                echo "Database Failure: Error Code 2";
                 echo "<br>";
                 echo "Query Error";
 
