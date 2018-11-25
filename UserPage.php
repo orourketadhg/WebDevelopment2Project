@@ -10,12 +10,6 @@
 	//check session is logged in
 	if($_SESSION['LoggedIn'] == true) {
 
-	    $next = 5;
-	    $previous = 0;
-
-	    echo $next;
-	    echo $previous;
-
         // Turn SQL query result into usable format
         $bookArraySQL = Array();
 
@@ -37,6 +31,9 @@
 
         }
 		else {
+
+		    echo $_SESSION['Next'];
+		    echo $_SESSION['Previous'];
 
             // add each row array to a array (2D array)
             while($row = mysqli_fetch_row($books)) {
@@ -61,7 +58,7 @@
             // Todo : add so user can click button to see next 5 books
 
             // Loop through books printing 5 to the page at any one time
-            for($i = $previous; $i < $next; $i++) {
+            for($i = $_SESSION['Previous']; $i < $_SESSION['Next']; $i++) {
 
                 echo "<tr>";
 
@@ -81,15 +78,15 @@
 
         }
 
-		if (isset($_POST['Previous']) && $previous != 0) {
-            $next = $next - 5;
-            $previous = $previous - 5;
+		if (isset($_POST['Previous']) && $_SESSION['Previous'] != 0) {
+            $_SESSION['Next'] = $_SESSION['Next'] - 5;
+            $_SESSION['Previous'] = $_SESSION['Previous'] - 5;
 
         }
 
-        if (isset($_POST['Next']) && $next != count($bookArraySQL)) {
-            $next = $next + 5;
-            $previous = $previous + 5;
+        if (isset($_POST['Next']) && ($_SESSION['Next'] != count($bookArraySQL))) {
+            $_SESSION['Next'] = $_SESSION['Next'] + 5;
+            $_SESSION['Previous'] = $_SESSION['Previous'] + 5;
 
         }
 

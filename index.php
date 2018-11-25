@@ -20,7 +20,6 @@
 		$sql_username = "SELECT Username FROM Users WHERE Username = '$user'";
 		$userLoginTest = mysqli_query($db, $sql_username);
 		
-		
 
 		$sql_password = "SELECT Username, Password FROM Users WHERE Username = '$user' and Password = '$pswd'";
 		$userpasswordTest = mysqli_query($db, $sql_password);
@@ -56,6 +55,8 @@
 					$_SESSION["LoggedIn"] = True;
 					$_SESSION["Username"] = $user;
 					$_SESSION["Password"] = $pswd;
+					$_SESSION["Previous"] = 0;
+					$_SESSION["Next"] = 5;
 					header('Location: UserPage.php');
 				
 				}
