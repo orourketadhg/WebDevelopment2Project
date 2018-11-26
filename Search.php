@@ -1,4 +1,11 @@
 <?php
+    /*
+     * Test Case 1 : User tries to access page out of session
+     *
+     *
+     */
+
+
     //Todo : add search functionality
     //Todo : add drop down category ID search
 
@@ -78,7 +85,7 @@
 
             //loop through and add categories from list
             for ($i = 0; $i < count($Categories); $i++) {
-                echo "<option value=$Categories[i]>$Categories[i]</option>";
+                echo "<option value=$Categories[$i]>$Categories[$i]</option>";
 
             }
 
@@ -241,6 +248,7 @@
         header('Location: index.php');
 
     }
+
 ?>
 
 <html>
