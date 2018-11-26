@@ -34,27 +34,6 @@
 
     }
 
-    function UnreserveBook($db, $user, $ISBN) {
-
-        $date = date("d-M-Y");
-
-        $ReserveBookSQl1 = "UPDATE Book SET Reserved = N WHERE ISBN = '$ISBN';";
-        $ReserveBookSQl2 = "DELETE * FROM Reserved WHERE Username = '$user' AND ISBN = '$ISBN';";
-
-        $SQL3Result = mysqli_query($db, $ReserveBookSQl1);
-        $SQL4Result = mysqli_query($db, $ReserveBookSQl2);
-
-        if(!$SQL4Result) {
-            echo "Database Failure: Error Code 5";
-
-        }
-        else if (!$SQL4Result) {
-            echo "Database Failure: Error Code 6";
-
-        }
-
-    }
-
     // check if session is logged in
     if($_SESSION['LoggedIn']) {
 
@@ -66,6 +45,7 @@
 
         $CategoriesResult = mysqli_query($db, $dropdownCategoryList);
 
+        // generate dropdown
         if ($CategoriesResult) {
 
             //array creation
@@ -82,10 +62,11 @@
             //create dropdown menu with options
             echo "<select name='dropdown'>";
 
-            echo "<option value='empty'>-- Chose a Category --</option>";
+            echo '<option value="0">-- Chose a Category --</option>';
 
             //loop through and add categories from list
             for ($i = 0; $i < count($Categories); $i++) {
+
                 echo "<option value=$Categories[$i]>$Categories[$i]</option>";
 
             }
@@ -94,6 +75,8 @@
 
         }
 
+
+        // text box - search
         if (isset($_POST['Search']) && !empty($_POST['SearchText'])){
 
             $SearchText = mysqli_real_escape_string($db, $_POST['SearchText']);
@@ -123,22 +106,31 @@
                 echo "<th>Year</th>";
                 echo "<th>Category ID</th>";
                 echo "<th>Reserved</th>";
+                echo "<th>Reserve</th>";
                 echo "</tr>";
 
                 for ($i = 0; $i < count($bookArraySQL); $i++) {
 
                     echo "<tr>";
 
-                    //loop through each book printing its data
-                    for ($j = 0; $j < 7; $j++) {
-                        if ($j != 8) {
+                    // loop through each book printing its data
+                    for ($j = 0; $j < 8; $j++) {
+                        // Create table data and reserve buttons
+                        if ($j != 7) {
                             echo "<td>";
                             echo $bookArraySQL[$i][$j];
                             echo "</td>";
                         }
-                        else {
+                        // create button to reserve book
+                        else if ($bookArraySQL[$i][6] != 'Y') {
                             echo "<td>";
-                            echo '<button type="button">Reserve</button>';
+                            echo "<button type='button' name=''>Reserve</button>";
+                            echo "</td>";
+                        }
+                        // if book already reserved
+                        else if ($bookArraySQL[$i][6] == 'Y'){
+                            echo "<td>";
+                            echo "Unable to reserve";
                             echo "</td>";
                         }
 
@@ -160,9 +152,16 @@
 
 
         }
-        else if (isset($_POST['Search']) && isset($_POST['dropdown']) != 'empty'){
+
+        // dropdown - search
+        else if (isset($_POST['Search']) && isset($_POST['dropdown']) != 0){
 
             $dropdownOption = $_POST['dropdown'];
+
+            // show dropdown selected value
+            echo $dropdownOption;
+
+            /*
 
             $searchSQLText = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryID, Reserved FROM Book JOIN Reserved WHERE CategoryDesc = '$dropdownOption';";
 
@@ -198,14 +197,21 @@
 
                     //loop through each book printing its data
                     for ($j = 0; $j < 8; $j++) {
-                        if ($j != 8) {
+                        if ($j != 7) {
                             echo "<td>";
                             echo $bookArraySQL[$i][$j];
                             echo "</td>";
                         }
-                        else {
+                        else if ($bookArraySQL[$i][6] != 'Y') {
+                            // ToDo : Find way to distinguish between each button in table
+
                             echo "<td>";
-                            echo '<button type="button">Reserve</button>';
+                            echo "<button type='button' name=''>Reserve</button>";
+                            echo "</td>";
+                        }
+                        else if ($bookArraySQL[$i][6] == 'Y'){
+                            echo "<td>";
+                            echo "Unable to reserve";
                             echo "</td>";
                         }
 
@@ -225,9 +231,9 @@
 
             }
 
+            */
+
         }
-
-
 
         // close database connection
         mysqli_close($db);

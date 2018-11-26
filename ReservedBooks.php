@@ -8,8 +8,11 @@
 
     function UnreserveBook($db, $user, $ISBN) {
 
-        $date = date("d-M-Y");
+        echo $db;
+        echo $user;
+        echo $ISBN;
 
+        /*
         $ReserveBookSQl1 = "UPDATE Book SET Reserved = N WHERE ISBN = '$ISBN';";
         $ReserveBookSQl2 = "DELETE * FROM Reserved WHERE Username = '$user' AND ISBN = '$ISBN';";
 
@@ -20,10 +23,11 @@
             echo "Database Failure: Error Code 2";
 
         }
-        else if (!$SQL4Result) {
+        else if (!$SQL3Result) {
             echo "Database Failure: Error Code 3";
 
         }
+        */
 
     }
 
@@ -66,6 +70,7 @@
             echo "<th>Year</th>";
             echo "<th>Category</th>";
             echo "<th>Reserved</th>";
+            echo "<th>Unreserve</th>";
             echo "</tr>";
 
             for ($i = 0; $i < count($bookArraySQL); $i++) {
@@ -73,15 +78,17 @@
                 echo "<tr>";
 
                 //loop through each book printing its data
-                for ($j = 0; $j < 7; $j++) {
-                    if ($j != 8) {
+                for ($j = 0; $j < 8; $j++) {
+                    if ($j != 7) {
                         echo "<td>";
                         echo $bookArraySQL[$i][$j];
                         echo "</td>";
                     }
-                    else {
+                    // create button to unreserve book
+                    else if ($bookArraySQL[$i][6] != 'Y') {
+                        $bookISBN = $bookArraySQL[$i][0];
                         echo "<td>";
-                        echo '<button type="button">Reserve</button>';
+                        echo "<button type='button' id='reserveButton' name='$bookISBN'>Unreserve</button>";
                         echo "</td>";
                     }
 
@@ -93,7 +100,6 @@
 
             echo "</table>";
         }
-
 
         // close database connection
         mysqli_close($db);
