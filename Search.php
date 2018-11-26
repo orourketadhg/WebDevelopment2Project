@@ -1,8 +1,9 @@
 <?php
     /*
      * Test Case 1 : User tries to access page out of session
-     *
-     *
+     * Test Case 2 : Search for author or book title
+     * Test Case 3 : Search for books by category via dropdown
+     * Test Case 4 : Ability to reserve a book if available
      */
 
 
