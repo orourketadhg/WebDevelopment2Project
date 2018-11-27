@@ -4,34 +4,11 @@
     //Todo : add link to users reserved books
     //Todo : Add ability to reserve book
 
-    // function to reserve book
-    function ReserveBook($db, $user, $ISBN) {
-
-        $date = date("d-M-Y");
-
-        $ReserveBookSQl1 = "UPDATE Book SET Reserved = Y WHERE ISBN = '$ISBN';";
-        $ReserveBookSQl2 = "INSERT INTO Reserved (ISBN, Username, ReservedDate) VALUES ('$ISBN', '$user', '$date');";
-
-        $SQL1Result = mysqli_query($db, $ReserveBookSQl1);
-        $SQL2Result = mysqli_query($db, $ReserveBookSQl2);
-
-        if(!$SQL1Result) {
-            echo "Database Failure: Error Code 3";
-
-        }
-        else if (!$SQL2Result) {
-            echo "Database Failure: Error Code 4";
-
-        }
-
-    }
-
     //start the session
 	session_start();
 
 	//check session is logged in
 	if($_SESSION['LoggedIn'] == true) {
-
 
         // Turn SQL query result into usable format
         $bookArraySQL = Array();
@@ -76,42 +53,20 @@
             echo "<th>Year</th>";
             echo "<th>Category ID</th>";
             echo "<th>Reserved</th>";
-            echo "<th>Reserve</th>";
             echo "</tr>";
 
             // Todo : fix bug requiring 2 button presses for next and previous
-
-            // create empty array for book ISBN's to be used to get the id of the book to be reserved
-            $bookReserveISBN = Array();
 
             // Loop through books printing 5 to the page at any one time
             for($i = $_SESSION['Previous']; $i < $_SESSION['Next']; $i++) {
 
                 echo "<tr>";
 
-                // loop through each book printing its data
-                for($j = 0; $j < 8; $j++) {
-                    // add book ISBN to ISBN array
-                    $bookReserveISBN[] = $bookArraySQL[$i][0];
-
-                    if ($j != 7) {
-                        echo "<td>";
-                        echo $bookArraySQL[$i][$j];
-                        echo "</td>";
-                    }
-                    // create button to reserve book
-                    else if ($bookArraySQL[$i][6] != 'Y') {
-                        echo "<td>";
-                        // set
-                        echo "<button type='button' id='reserveButton' name='$j'>Reserve</button>";
-                        echo "</td>";
-                    }
-                    // if book already reserved
-                    else if ($bookArraySQL[$i][6] == 'Y'){
-                        echo "<td>";
-                        echo "Unable to reserve";
-                        echo "</td>";
-                    }
+                //loop through each book printing its data
+                for($j = 0; $j < 7; $j++) {
+                    echo "<td>";
+                    echo $bookArraySQL[$i][$j];
+                    echo "</td>";
 
                 }
 
@@ -123,7 +78,7 @@
 
         }
 
-        if (isset($_POST['Previous']) && $_SESSION['Previous'] != 0) {
+		if (isset($_POST['Previous']) && $_SESSION['Previous'] != 0) {
             $_SESSION['Next'] = $_SESSION['Next'] - 5;
             $_SESSION['Previous'] = $_SESSION['Previous'] - 5;
 

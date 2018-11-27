@@ -161,77 +161,7 @@
             // show dropdown selected value
             echo $dropdownOption;
 
-            /*
 
-            $searchSQLText = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryID, Reserved FROM Book JOIN Reserved WHERE CategoryDesc = '$dropdownOption';";
-
-            $Books = mysqli_query($db, $searchSQLText);
-
-            if ($Books) {
-
-                $bookArraySQL = Array();
-
-                // add each row array to a array (2D array)
-                while($row = mysqli_fetch_row($Books)) {
-                    $bookArraySQL[] = $row;
-
-                }
-
-                echo "<table border=1>";
-
-                // Table Column names
-                echo "<tr>";
-                echo "<th>ISBN</th>";
-                echo "<th>Book Title</th>";
-                echo "<th>Author</th>";
-                echo "<th>Edition</th>";
-                echo "<th>Year</th>";
-                echo "<th>Category ID</th>";
-                echo "<th>Reserved</th>";
-                echo "<th>Reserve Book</th>";
-                echo "</tr>";
-
-                for ($i = 0; $i < count($bookArraySQL); $i++) {
-
-                    echo "<tr>";
-
-                    //loop through each book printing its data
-                    for ($j = 0; $j < 8; $j++) {
-                        if ($j != 7) {
-                            echo "<td>";
-                            echo $bookArraySQL[$i][$j];
-                            echo "</td>";
-                        }
-                        else if ($bookArraySQL[$i][6] != 'Y') {
-                            // ToDo : Find way to distinguish between each button in table
-
-                            echo "<td>";
-                            echo "<button type='button' name=''>Reserve</button>";
-                            echo "</td>";
-                        }
-                        else if ($bookArraySQL[$i][6] == 'Y'){
-                            echo "<td>";
-                            echo "Unable to reserve";
-                            echo "</td>";
-                        }
-
-                    }
-
-                    echo "</tr>";
-
-                }
-
-                echo "</table>";
-
-            }
-            else {
-                echo "Database Failure: Error Code 2";
-                echo "<br>";
-                echo "Query Error";
-
-            }
-
-            */
 
         }
 
@@ -252,7 +182,7 @@
 
     }
     else {
-        header('Location: index.php');
+        header('Location: login.php');
 
     }
 

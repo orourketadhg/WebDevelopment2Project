@@ -34,10 +34,10 @@
     // check if session is logged in
     if($_SESSION['LoggedIn']) {
 
-        //open database connection
+        // open database connection
         $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB');
 
-        //get sessions username
+        // get sessions username
         $user = $_SESSION['Username'];
 
         // SQL required for Reserved Books page
@@ -45,20 +45,24 @@
 
         $SQLResult = mysqli_query($db, $userReservedSQl);
 
+
+        // if SQL result returns a NULL value - Error code 1
         if (!$SQLResult) {
             echo "Database Failure: Error Code 1";
 
         }
+        // else generate table from SQL data
         else {
 
             $bookArraySQL = Array();
 
-            // add each row array to a array (2D array)
+            // add each book array to a array (2D array)
             while($row = mysqli_fetch_row($SQLResult)) {
                 $bookArraySQL[] = $row;
 
             }
 
+            //create table
             echo "<table border=1>";
 
             // Table Column names
@@ -73,6 +77,7 @@
             echo "<th>Unreserve</th>";
             echo "</tr>";
 
+            //loop through queried books array
             for ($i = 0; $i < count($bookArraySQL); $i++) {
 
                 echo "<tr>";
@@ -85,10 +90,14 @@
                         echo "</td>";
                     }
                     // create button to unreserve book
-                    else if ($bookArraySQL[$i][6] != 'Y') {
-                        $bookISBN = $bookArraySQL[$i][0];
+                    else if ($bookArraySQL[$i][7] != 'Y') {
+                        $book = $bookArraySQL[$i][0];
                         echo "<td>";
-                        echo "<button type='button' id='reserveButton' name='$bookISBN'>Unreserve</button>";
+                        echo "<form method='post'>";
+                        //echo "<input type='hidden' name='$j'>";
+                        echo "<input type='submit' name='$j' value='Unreserve'>";
+                        echo "</form>";
+                        //echo "<button type='button' name=''>Unreserve</button>";
                         echo "</td>";
                     }
 
@@ -100,6 +109,16 @@
 
             echo "</table>";
         }
+
+        for ($i = 0; $i < count($bookArraySQL); $i++) {
+
+            if (isset($_POST[$j])) {
+                UnreserveBook($db, $user, $bookArraySQL[$i][0]);
+            }
+
+
+        }
+
 
         // close database connection
         mysqli_close($db);
@@ -117,7 +136,7 @@
 
     }
     else {
-        header('Location: index.php');
+        header('Location: login.php');
 
     }
 

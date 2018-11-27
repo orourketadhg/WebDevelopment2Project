@@ -14,7 +14,7 @@
         if (isset($_POST['destroySession'])) {
             $temp = $_POST['destroySession'];
             session_destroy();
-            header('Location: index.php');
+            header('Location: login.php');
 
         }
         else {
@@ -24,7 +24,7 @@
 
     }
     else {
-        header('Location: index.php');
+        header('Location: login.php');
 
     }
 
