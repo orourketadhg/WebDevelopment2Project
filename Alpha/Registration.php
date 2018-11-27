@@ -1,17 +1,6 @@
 <?php
 
-	/*
-		Test Case 1: No inputs in fields 
-		Test Case 2: Username Already exists
-		Test Case 3: Passwords do not match
-		Test Case 4: Passwords length != 6
-		Test Case 5: Telephone number length != 10 
-		Test Case 6: Telephone number not a number
-		Test Case 7: mobile number not a number
-		Test Case 8: mobile number length != 7
-		Test Case 9: all conditions met - Registration success
-	
-	*/
+
 	
 	//Function to test passwords 
 	function PasswordTest($pswd1, $pswd2){
