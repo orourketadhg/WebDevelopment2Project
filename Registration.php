@@ -120,7 +120,7 @@
                             }
                             else {
                                 echo "Registration Complete";
-                                header('Location: index.php');
+                                header('Location: login.php');
 
                             }
 
@@ -146,8 +146,8 @@
 	$sql_username = "SELECT Username FROM Users";
 	$userLoginTest = mysqli_query($db, $sql_username);
 	$userLogin = mysqli_fetch_row($userLoginTest);
-	echo "<br>";
-	print_r($userLogin);
+//	echo "<br>";
+//	print_r($userLogin);
 	
 	
 	//Close DataBase Connection
@@ -190,6 +190,6 @@
 	
 	<input type="submit" value="Register">
 	
-	<a href="index.php">Cancel</a>
+	<a href="login.php">Cancel</a>
 
 </form>
