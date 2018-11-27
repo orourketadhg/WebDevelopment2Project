@@ -31,6 +31,27 @@
 
     }
 
+function ReserveBook($db, $user, $ISBN) {
+
+    $date = date("d-M-Y");
+
+    $ReserveBookSQl1 = "UPDATE Book SET Reserved = Y WHERE ISBN = '$ISBN';";
+    $ReserveBookSQl2 = "INSERT INTO Reserved (ISBN, Username, ReservedDate) VALUES ('$ISBN', '$user', '$date');";
+
+    $SQL1Result = mysqli_query($db, $ReserveBookSQl1);
+    $SQL2Result = mysqli_query($db, $ReserveBookSQl2);
+
+    if(!$SQL1Result) {
+        echo "Database Failure: Error Code 3";
+
+    }
+    else if (!$SQL2Result) {
+        echo "Database Failure: Error Code 4";
+
+    }
+
+}
+
     // check if session is logged in
     if($_SESSION['LoggedIn']) {
 

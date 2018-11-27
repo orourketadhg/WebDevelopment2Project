@@ -1,10 +1,10 @@
 <?php
 
 	/*
-		Test Case 1: No inputs in fields 
-		Test Case 2: Username doesn't Exist 
-		Test Case 3: Username correct, Password incorrect 
-		Test Case 4: Username and Password correct - login successful 
+		Test Case 1: No inputs in fields
+		Test Case 2: Username doesn't Exist
+		Test Case 3: Username correct, Password incorrect
+		Test Case 4: Username and Password correct - login successful
 	*/
 
 	//connect to database
@@ -19,7 +19,6 @@
 		//check if user exists
 		$sql_username = "SELECT Username FROM Users WHERE Username = '$user'";
 		$userLoginTest = mysqli_query($db, $sql_username);
-		
 
 		$sql_password = "SELECT Username, Password FROM Users WHERE Username = '$user' and Password = '$pswd'";
 		$userpasswordTest = mysqli_query($db, $sql_password);

@@ -6,33 +6,11 @@
      * Test Case 4 : Ability to reserve a book if available
      */
 
-
     //Todo : add search functionality
     //Todo : add drop down category ID search
 
     //start session
     session_start();
-
-    function ReserveBook($db, $user, $ISBN) {
-
-        $date = date("d-M-Y");
-
-        $ReserveBookSQl1 = "UPDATE Book SET Reserved = Y WHERE ISBN = '$ISBN';";
-        $ReserveBookSQl2 = "INSERT INTO Reserved (ISBN, Username, ReservedDate) VALUES ('$ISBN', '$user', '$date');";
-
-        $SQL1Result = mysqli_query($db, $ReserveBookSQl1);
-        $SQL2Result = mysqli_query($db, $ReserveBookSQl2);
-
-        if(!$SQL1Result) {
-            echo "Database Failure: Error Code 3";
-
-        }
-        else if (!$SQL2Result) {
-            echo "Database Failure: Error Code 4";
-
-        }
-
-    }
 
     // check if session is logged in
     if($_SESSION['LoggedIn']) {
@@ -67,9 +45,10 @@
             //loop through and add categories from list
             for ($i = 0; $i < count($Categories); $i++) {
 
-                echo "<option value=$Categories[$i]>$Categories[$i]</option>";
+                echo "<option value='$Categories[$i]'>$Categories[$i]</option>";
 
             }
+
 
             echo "</select>";
 
@@ -156,10 +135,12 @@
         // dropdown - search
         else if (isset($_POST['Search']) && isset($_POST['dropdown']) != 0){
 
-            $dropdownOption = $_POST['dropdown'];
+            echo $dropdownOption = $_POST['dropdown'];
 
-            // show dropdown selected value
-            echo $dropdownOption;
+            //echo $dropdownOption;
+
+            $searchSQLText = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryDesc, Reserved FROM Book JOIN Category WHERE CategoryDesc = '$dropdownOption'";
+
 
 
 
