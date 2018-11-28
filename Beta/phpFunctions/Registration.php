@@ -105,7 +105,7 @@
         $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
 
         // User creation SQL query
-        $RegistrationSQL = "INSERT INTO `users`(`Username`, `Password`, `Firstname`, `Surname`, `AddressLine_1`, `AddressLine_2`, `City`, `Telephone`, `Mobile`) VALUES ('$username', '$password', '$firstname', '$surname', '$address1', '$address2', '$city', '$telephone', '$mobile');";
+        $RegistrationSQL = "INSERT INTO users(Username, UserPassword, `Firstname`, `Surname`, `AddressLine_1`, `AddressLine_2`, `City`, `Telephone`, `Mobile`) VALUES ('$username', '$password', '$firstname', '$surname', '$address1', '$address2', '$city', '$telephone', '$mobile');";
         $Result = mysqli_query($db, $RegistrationSQL);
 
         // if query failure
@@ -127,7 +127,6 @@
 
 
     }
-
 
     // function to test all Test Cases
     function DataTest($username, $password1, $password2, $firstname, $surname, $address1, $address2, $city, $telephone, $mobile) {
