@@ -97,7 +97,7 @@
 
             <input type="submit" value="Register">
 
-            <a href="login.php">Cancel</a>
+            <a href="index.php">Cancel</a>
 
         </form>
 
