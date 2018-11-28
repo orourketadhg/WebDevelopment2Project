@@ -8,11 +8,12 @@
     include 'phpFunctions/SessionCheck.php';
     include 'phpFunctions/Searching.php';
 
+    SessionCheck();
     $Categories = DropDownCategories();
  ?>
 
 <html lang="en">
-    <?php SessionCheck();?>
+
     <head>
         <title>Userpage</title>
     </head>
@@ -38,7 +39,20 @@
                 <label for="SearchBox">Search:</label>
                 <input type="text" name="SearchBox" id="SearchBox">
 
-                <select name="SearchCategory">
+
+
+                    <?php
+                       echo '<label for="CategoryBox">Category:</label>';
+                       echo  '<select name="SearchCategory" id="CategoryBox">';
+
+                        for($i = 0; $i < count($Categories); $i++) {
+                            echo "<option name=$Categories[$i]>$Categories[$i]</option>";
+
+                        }
+
+                        echo '</select>';
+
+                    ?>
 
                 </select>
 
