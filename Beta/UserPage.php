@@ -43,7 +43,9 @@
 
                     <?php
                        echo '<label for="CategoryBox">Category:</label>';
-                       echo  '<select name="SearchCategory" id="CategoryBox">';
+                       echo '<select name="SearchCategory" id="CategoryBox">';
+
+                       echo '<option name="Default">-- Choose a Category --</option>';
 
                         for($i = 0; $i < count($Categories); $i++) {
                             echo "<option name=$Categories[$i]>$Categories[$i]</option>";
@@ -52,9 +54,11 @@
 
                         echo '</select>';
 
-                    ?>
+                        $DropDownResult = $_POST['SearchCategory'];
+                        echo $DropDownResult;
 
-                </select>
+
+                    ?>
 
             </div>
 
