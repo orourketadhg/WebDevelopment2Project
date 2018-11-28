@@ -1,20 +1,9 @@
 <?php
-    // start session
-    session_start();
-
-    // if session is logged in
-    if($_SESSION['LoggedIn'] == true) {
-
-
-    }
-    // else session is not logged in
-    else {
-        header('Location: index.php');
-
-    }
+    include 'phpFunctions/SessionCheck.php';
 ?>
 
 <html lang="en">
+    <?php SessionCheck(); ?>
     <head>
         <title>Reserved Books</title>
     </head>
