@@ -1,5 +1,7 @@
 <?php
 
+    // ToDo : Alter code to allow partial searches
+
     // function get books from search box
     function TextSearch($input) {
         if (isset($_POST['SearchBox']) && !empty($_POST['SearchBox'])) {
@@ -48,6 +50,38 @@
 
     }
 
+
+    function DropDownCategories() {
+
+        // create connection to database
+        $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
+
+        // SQL required to get dropdown menu items
+        $dropdownCategoryList = "SELECT CategoryDesc FROM Category";
+
+        $CategoriesResult = mysqli_query($db, $dropdownCategoryList);
+
+        $Categories = array();
+
+        //turn rows into a 1D array
+        While($row = mysqli_fetch_row($CategoriesResult)) {
+            $Categories[] = $row[0];
+        }
+
+        // close connection to database
+        mysqli_close($db);
+
+        // if query failure
+        if ($CategoriesResult == false) {
+            return "Error Code 3 : Query Error";
+        }
+        else {
+            return $Categories;
+
+        }
+
+
+    }
 
     //function to get the result of the drop down menu
     function DropDownSearch($input) {

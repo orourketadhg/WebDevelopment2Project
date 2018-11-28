@@ -1,5 +1,4 @@
 <?php
-    // ToDo : Add search by text box
     // ToDo : Add search by category
     // ToDo : Add display table
     // ToDo : Add only 5 books per table
@@ -8,6 +7,8 @@
 
     include 'phpFunctions/SessionCheck.php';
     include 'phpFunctions/Searching.php';
+
+    $Categories = DropDownCategories();
  ?>
 
 <html lang="en">
@@ -36,6 +37,11 @@
             <div>
                 <label for="SearchBox">Search:</label>
                 <input type="text" name="SearchBox" id="SearchBox">
+
+                <select name="SearchCategory">
+
+                </select>
+
             </div>
 
             <input type="submit" name="Submit">
