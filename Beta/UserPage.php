@@ -20,7 +20,6 @@
     </head>
 
     <body>
-
         <a href="UserReservedBooks.php">My Reserved Books</a>
         <a href="Logout.php">Logout</a>
 
