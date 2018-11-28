@@ -26,7 +26,40 @@
             <div id="RegistrationInputFields">
 
                 <?php
-                    DataTest();
+                    // create connection to database
+                    $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
+
+                        // default values
+                        $username = null;
+                        $password1 = null;
+                        $password2 = null;
+                        $firstname = null;
+                        $surname = null;
+                        $address1 = null;
+                        $address2 = null;
+                        $city = null;
+                        $mobile = null;
+                        $telephone = null;
+
+                     // if form submitted
+                    if ($_POST) {
+                        // real escape string check
+                        $username = mysqli_real_escape_string($db, $_POST['user']);
+                        $password1 = mysqli_real_escape_string($db, $_POST['password1']);
+                        $password2 = mysqli_real_escape_string($db, $_POST['password2']);
+                        $firstname = mysqli_real_escape_string($db, $_POST['firstname']);
+                        $surname = mysqli_real_escape_string($db, $_POST['surname']);
+                        $address1 = mysqli_real_escape_string($db, $_POST['address1']);
+                        $address2 = mysqli_real_escape_string($db, $_POST['address2']);
+                        $city = mysqli_real_escape_string($db, $_POST['city']);
+                        $mobile = mysqli_real_escape_string($db, $_POST['mobile']);
+                        $telephone = mysqli_real_escape_string($db, $_POST['telephone']);
+                    }
+
+                    // close connection to database
+                    mysqli_close($db);
+
+                    DataTest($username, $password1, $password2, $firstname, $surname, $address1, $address2, $city, $telephone, $mobile);
 
                 ?>
 
