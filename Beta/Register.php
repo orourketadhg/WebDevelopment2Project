@@ -26,7 +26,7 @@
             <div id="RegistrationInputFields">
 
                 <?php
-
+                    DataTest();
 
                 ?>
 

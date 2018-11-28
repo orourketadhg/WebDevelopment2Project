@@ -108,21 +108,20 @@
         $RegistrationSQL = "INSERT INTO `users`(`Username`, `Password`, `Firstname`, `Surname`, `AddressLine_1`, `AddressLine_2`, `City`, `Telephone`, `Mobile`) VALUES ('$username', '$password', '$firstname', '$surname', '$address1', '$address2', '$city', '$telephone', '$mobile');";
         $Result = mysqli_query($db, $RegistrationSQL);
 
-
-        // if query success
-        if($Result) {
-            // close connection to database
+        // if query failure
+        if(!$Result) {
+        // close connection to database
             mysqli_close($db);
 
-            return "User Created";
+            return "Error Code 8 : User Creation Error";
 
         }
-        // else query failure
+        // else query success
         else {
             // close connection to database
             mysqli_close($db);
 
-            return "Error Code 8 : User Creation Error";
+            return "User Created";
 
         }
 
@@ -133,6 +132,24 @@
     // function to test all Test Cases
     function DataTest() {
 
+        // create connection to database
+        $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB');
+
+        // real escape string check
+        $username = mysqli_real_escape_string($db, $_POST['user']);
+        $password1 = mysqli_real_escape_string($db, $_POST['password1']);
+        $password2 = mysqli_real_escape_string($db, $_POST['password2']);
+        $firstname = mysqli_real_escape_string($db, $_POST['firstname']);
+        $surname = mysqli_real_escape_string($db, $_POST['surname']);
+        $address1 = mysqli_real_escape_string($db, $_POST['address1']);
+        $address2 = mysqli_real_escape_string($db, $_POST['address2']);
+        $city = mysqli_real_escape_string($db, $_POST['city']);
+        $mobile = mysqli_real_escape_string($db, $_POST['mobile']);
+        $telephone = mysqli_real_escape_string($db, $_POST['telephone']);
+
+        // close connection to database
+        mysqli_close($db);
+
         // all fields filled
         $Result = FieldsFilled();
 
@@ -142,7 +159,7 @@
             // echo $Result;
 
             // username doesn't exist
-            $usernameCheck = UserCheck($_POST['user']);
+            $usernameCheck = UserCheck($username);
 
             // if username doesn't exist
             if ($usernameCheck == "Username Accepted") {
@@ -150,7 +167,7 @@
                 // echo $usernameCheck;
 
                 // passwords are acceptable
-                $passwordCheck = PasswordCheck($_POST['password1'], $_POST['password2']);
+                $passwordCheck = PasswordCheck($password1, $password2);
 
                 // if passwords are acceptable
                 if ($passwordCheck == "Passwords Match") {
@@ -158,7 +175,7 @@
                     // echo $passwordCheck;
 
                     // mobile number is acceptable
-                    $mobileCheck = PhoneCheck($_POST['mobile'], 7);
+                    $mobileCheck = PhoneCheck($mobile, 7);
 
                     // if mobile number is acceptable
                     if ($mobileCheck == "Phone Accepted") {
@@ -166,7 +183,7 @@
                         // echo $mobileCheck;
 
                         // telephone number is acceptable
-                        $telephoneCheck = PhoneCheck($_POST['telephone'], 10);
+                        $telephoneCheck = PhoneCheck($telephone, 10);
 
                         // if telephone number is acceptable
                         if ($telephoneCheck == "Phone Accepted") {
@@ -174,7 +191,7 @@
                             // echo $telephoneCheck;
 
                             // create user
-                            $creationCheck = CreateUser($_POST['user'], $_POST['password1'], $_POST['firstname'], $_POST['surname'], $_POST['address1'], $_POST['address2'], $_POST['city'], $_POST['telephone'], $_POST['mobile']);
+                            $creationCheck = CreateUser($username, $password1, $firstname, $surname, $address1, $address2, $city, $telephone, $mobile);
 
                             // if user created
                             if ($creationCheck == "User Created") {
