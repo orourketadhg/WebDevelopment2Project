@@ -71,7 +71,7 @@
     function UserCheck($username) {
 
         // create connection to database
-        $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB');
+        $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
 
         //SQL Username Query
         $sql_username = "SELECT Username FROM Users WHERE Username = '$username'";
@@ -102,7 +102,7 @@
 
     function CreateUser($username, $password, $firstname, $surname, $address1, $address2, $city, $telephone, $mobile){
         // create connection to database
-        $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB');
+        $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
 
         // User creation SQL query
         $RegistrationSQL = "INSERT INTO `users`(`Username`, `Password`, `Firstname`, `Surname`, `AddressLine_1`, `AddressLine_2`, `City`, `Telephone`, `Mobile`) VALUES ('$username', '$password', '$firstname', '$surname', '$address1', '$address2', '$city', '$telephone', '$mobile');";
@@ -133,7 +133,7 @@
     function DataTest() {
 
         // create connection to database
-        $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB');
+        $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
 
         // real escape string check
         $username = mysqli_real_escape_string($db, $_POST['user']);

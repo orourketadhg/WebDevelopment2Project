@@ -6,7 +6,7 @@
     function TestInput() {
 
         // create connection to database
-        $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB');
+        $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
 
         // default values
         $user = null;
