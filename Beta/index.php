@@ -48,6 +48,7 @@
             </div>
 
             <input type="submit" value="Login">
+            <a href="Register.php">Register</a>
 
         </form>
 
