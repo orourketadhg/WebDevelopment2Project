@@ -7,6 +7,7 @@
     // ToDo : Add ability to reserve book
 
     include 'phpFunctions/SessionCheck.php';
+    include 'phpFunctions/Searching.php';
  ?>
 
 <html lang="en">
@@ -18,6 +19,28 @@
     <body>
         <a href="UserReservedBooks.php">My Reserved Books</a>
         <a href="Logout.php">Logout</a>
+
+        <form method="post">
+            <?php
+
+                if ($_POST) {
+                    $TextResult = TextSearch($_POST['SearchBox']);
+
+                    if ($TextResult!= array()) {
+                        print_r($TextResult);
+
+                    }
+                }
+            ?>
+
+            <div>
+                <label for="SearchBox">Search:</label>
+                <input type="text" name="SearchBox" id="SearchBox">
+            </div>
+
+            <input type="submit" name="Submit">
+
+        </form>
 
     </body>
 
