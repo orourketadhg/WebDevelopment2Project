@@ -25,8 +25,9 @@
                     $Result = TestInput();
 
                     if ($Result == "Logging in") {
-//                        session_start();
-//                        $_SESSION["LoggedIn"] = True;
+                        session_start();
+                        $_SESSION["LoggedIn"] = True;
+                        $_SESSION['Username'] = $_POST['user'];
 
                         echo "<p>Beginning Log in</p>";
                     }

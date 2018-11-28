@@ -1,7 +1,5 @@
 <?php
 
-    // Todo : add session and URL data
-
     // Function to test if both text fields are filled.
     function TestInput() {
 
