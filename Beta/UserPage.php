@@ -23,42 +23,37 @@
         <a href="Logout.php">Logout</a>
 
         <form method="post">
-            <?php
 
-                if ($_POST) {
-                    $TextResult = TextSearch($_POST['SearchBox']);
-
-                    if ($TextResult!= array()) {
-                        print_r($TextResult);
-
-                    }
-                }
-            ?>
-
+            <?php SearchType();?>
             <div>
                 <label for="SearchBox">Search:</label>
                 <input type="text" name="SearchBox" id="SearchBox">
 
-
-
                     <?php
-                       echo '<label for="CategoryBox">Category:</label>';
-                       echo '<select name="SearchCategory" id="CategoryBox">';
 
-                       echo '<option name="Default">-- Choose a Category --</option>';
+                        // handling default load value
+                        if (!$_POST) {
+                            $_POST['SearchCategory'] = '';
+                        }
+
+                        // create drop down
+                        echo '<label for="CategoryBox">Category:</label>';
+                        echo '<select name="SearchCategory" id="CategoryBox">';
+
+                        echo '<option name="Default">-- Choose a Category --</option>';
 
                         for($i = 0; $i < count($Categories); $i++) {
                             echo "<option name=$Categories[$i]>$Categories[$i]</option>";
 
                         }
 
-                        echo '</select>';
+                        echo ' </select>';
 
+                        // get chosen drop down value
                         $DropDownResult = $_POST['SearchCategory'];
-                        echo $DropDownResult;
-
 
                     ?>
+
 
             </div>
 
@@ -69,3 +64,5 @@
     </body>
 
 </html>
+
+

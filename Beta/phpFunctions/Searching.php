@@ -2,55 +2,75 @@
 
     // ToDo : Alter code to allow partial searches
 
-    // function get books from search box
-    function TextSearch($input) {
-        if (isset($_POST['SearchBox']) && !empty($_POST['SearchBox'])) {
+    // function to search either with text box or category
+    function SearchType() {
 
-            // create connection to database
-            $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
+        // if TextBox is filled and Post occurs
+        if ($_POST && !empty($_POST['SearchBox'])){
+            $TextResult = TextSearch($_POST['SearchBox']);
 
-            // real escape string check
-            $input = mysqli_real_escape_string($db, $input);
-
-            // SQL required for text box search
-            $searchQuerySQL = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryID, Reserved FROM Book WHERE BookTitle = '$input' OR Author = '$input';";
-
-            // SQL query for text box search
-            $Result = mysqli_query($db, $searchQuerySQL);
-
-            // close connection to database
-            mysqli_close($db);
-
-            // if SQL query failed
-            if ($Result == false) {
-                return "Error Code 2 : SQL Query Error";
-
-            } // else SQL query success
-            else {
-                // create empty array for queried books
-                $ResultBooks = array();
-
-                // turn query result into usable array
-                while($row = mysqli_fetch_row($Result)) {
-                    $ResultBooks[] = $row;
-
-                }
-
-                // return queried books
-                return $ResultBooks;
+            if ($TextResult!= array()) {
+                print_r($TextResult);
 
             }
 
-
         }
-        else {
-            return "Error Code 1 : Text Box must be Filled";
+        // else if a category is selected and Post occurs
+        else if ($_POST && $_POST['SearchCategory'] != 'Default') {
+            $DropDownResult = DropDownSearch($_POST['SearchCategory']);
+
+            if ($DropDownResult!= array()) {
+                print_r($DropDownResult);
+
+            }
 
         }
 
     }
 
 
+    // function get books from search box
+    function TextSearch($input) {
+
+        // create connection to database
+        $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
+
+        // real escape string check
+        $input = mysqli_real_escape_string($db, $input);
+
+        // SQL required for text box search
+        $searchQuerySQL = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryID, Reserved FROM Book WHERE BookTitle = '$input' OR Author = '$input';";
+
+        // SQL query for text box search
+        $Result = mysqli_query($db, $searchQuerySQL);
+
+        // close connection to database
+        mysqli_close($db);
+
+        // if SQL query failed
+        if ($Result == false) {
+            return "Error Code 2 : SQL Query Error";
+
+        } // else SQL query success
+        else {
+            // create empty array for queried books
+            $ResultBooks = array();
+
+            // turn query result into usable array
+            while($row = mysqli_fetch_row($Result)) {
+                $ResultBooks[] = $row;
+
+            }
+
+            // return queried books
+            return $ResultBooks;
+
+        }
+
+    }
+
+
+    // function to get the dropdown menu options
     function DropDownCategories() {
 
         // create connection to database
@@ -80,10 +100,12 @@
 
         }
 
-
     }
 
-    //function to get the result of the drop down menu
+
+    // function to get the result of the drop down menu
     function DropDownSearch($input) {
 
     }
+
+
