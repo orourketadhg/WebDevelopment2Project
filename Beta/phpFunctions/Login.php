@@ -71,6 +71,7 @@
             return "Error Code 2 : Username Query Error";
 
         }
+        // else username doesn't exist
         else {
             return "Error Code 3 : Username Doesn't Exist";
         }

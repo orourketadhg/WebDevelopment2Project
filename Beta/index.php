@@ -31,7 +31,7 @@
                         echo "<p>Beginning Log in</p>";
                     }
                     else {
-                        echo "<p>$Result</p>";
+                        echo "<p id='Error'>$Result</p>";
                     }
                 ?>
             </div>

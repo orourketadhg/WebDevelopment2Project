@@ -25,6 +25,20 @@
 
             <div id="RegistrationInputFields">
 
+                <?php
+                    $Result = FeildsFilled();
+
+                    if ($Result == "Filled") {
+                        echo $Result;
+
+                    }
+                    else {
+                        echo "<p id='Error'>$Result</p>";
+
+                    }
+
+                ?>
+
                 <label for="user">Username:</label>
                 <input type="text" name="user" id="user" >
 
