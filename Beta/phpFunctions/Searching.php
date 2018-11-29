@@ -1,44 +1,4 @@
 <?php
-    include 'DisplayTable.php';
-    include 'ReserveBooks.php';
-
-    // function to search either with text box or category
-    function SearchType() {
-
-        // if TextBox is filled and Post occurs
-        if ($_POST && !empty($_POST['SearchBox'])){
-            $TextResult = TextSearch($_POST['SearchBox']);
-
-            if ($TextResult!= array()) {
-                ReserveDropDown($TextResult);
-                Display($TextResult);
-
-            }
-            else {
-                echo "No Books Found";
-
-            }
-
-        }
-        // else if a category is selected and Post occurs
-        else if ($_POST && $_POST['SearchCategory'] != 'Default') {
-            $DropDownResult = DropDownSearch($_POST['SearchCategory']);
-
-            if ($DropDownResult!= array()) {
-                ReserveDropDown($DropDownResult);
-                Display($DropDownResult);
-
-            }
-
-
-        }
-        // display all books
-        else {
-            StartBooks();
-        }
-
-    }
-
 
     // function get books from search box
     function TextSearch($input) {
@@ -158,42 +118,37 @@
     // function to show all books at the start of a page
     function StartBooks() {
 
-        if (!$_POST) {
+        // create connection to database
+        $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
 
-            // create connection to database
-            $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
+        // SQL required to get all books
+        $BooksQuerySQL = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryDesc, Reserved FROM Book JOIN Category USING (CategoryID);";
 
-            // SQL required to get all books
-            $BooksQuerySQL = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryDesc, Reserved FROM Book JOIN Category USING (CategoryID);";
+        // SQL query for all books
+        $BooksQueryResult = mysqli_query($db, $BooksQuerySQL);
 
-            // SQL query for all books
-            $BooksQueryResult = mysqli_query($db, $BooksQuerySQL);
+        // close connection to database
+        mysqli_close($db);
 
-            // close connection to database
-            mysqli_close($db);
+        // if query failure
+        if ($BooksQueryResult == false) {
+            return "Error Code 1 : Query Error";
 
-            // if query failure
-            if ($BooksQueryResult == false) {
-                return "Error Code 1 : Query Error";
+        }
+        // else query success
+        else {
+            // create empty array for books
+            $Books = array();
 
+            // turn query into usable array of books
+            While($row = mysqli_fetch_row($BooksQueryResult)) {
+                $Books[] = $row;
             }
-            // else query success
-            else {
-                // create empty array for books
-                $Books = array();
 
-                // turn query into usable array of books
-                While($row = mysqli_fetch_row($BooksQueryResult)) {
-                    $Books[] = $row;
-                }
-
-                // create Table of all books
-                Display($Books);
-
-            }
+            // create Table of all books
+            splitBooks($Books);
 
         }
 
     }
-
 

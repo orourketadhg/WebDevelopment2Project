@@ -29,7 +29,7 @@
                         $_SESSION["LoggedIn"] = True;
                         $_SESSION['Username'] = $_POST['user'];
 
-                        header('Location: UserPage.php');
+                        header('Location: UserPage.php?page=0');
                     }
                     else {
                         echo "<p id='Error'>$Result</p>";

@@ -35,7 +35,7 @@
         <input type="submit" value="Continue" name="destroySession">
 
         <!--User cancels logout - Test Case 2 -->
-        <a href="UserPage.php">Cancel</a>
+        <a href="UserPage.php?page=0">Cancel</a>
 
     </form>
 
