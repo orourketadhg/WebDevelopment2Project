@@ -4,7 +4,7 @@
 
     include 'phpFunctions/HomeFunctions.php';
 
-    onLoad();
+    SessionCheck();
  ?>
 
 <html lang="en">
@@ -26,7 +26,7 @@
                 <label for="SearchText">Search:</label>
                 <input type="text" name="SearchBox" id="SearchText">
 
-                <?php DropDown();?>
+                <?php DropDownCategories();?>
 
             </div>
 

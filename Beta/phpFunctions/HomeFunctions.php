@@ -1,8 +1,6 @@
 <?php
 
     // ToDo : Add ability to change Pages via button clicks
-    // ToDo : Add separate books in groups of books of 5 or less
-    // ToDo : Get the search option
 
     // change header to form link with new URL variables
 
@@ -13,9 +11,9 @@
 
 
     // Function to generate dropdown menu for categories
-    function DropDown() {
+    function DropDownCategories() {
 
-        $Categories = DropDownCategories();
+        $Categories = DropDownCategoryList();
 
         // handling default load value
         if (!$_POST) {
@@ -38,12 +36,25 @@
     }
 
 
-    // Function for main checks and actions
-    function onLoad() {
-        SessionCheck();
+    function DropDownReservable($books) {
+
+        $reservable = getUnreservedBooks($books);
+
+        // create drop down
+        echo '<label for="ReserveBox">Reserve a book:</label>';
+        echo '<select name="Reservebook" id="ReserveBox">';
+
+        echo '<option name="Default">-- Choose a book to reserve --</option>';
+
+        // give category options
+        for($i = 0; $i < count($reservable); $i++) {
+            echo "<option name=$reservable[$i]>$reservable[$i]</option>";
+
+        }
+
+        echo ' </select>';
 
     }
-
 
     function pages() {
 
@@ -72,9 +83,11 @@
                 // separate books into groups of 5
                 $separatedBooks = array_chunk($books, 5);
 
-                $bookCount = count($separatedBooks[$page]);
+                //$bookCount = count($separatedBooks[$page]);
+                $bookCount = count($books);
 
                 display($separatedBooks[$page], $bookCount);
+                DropDownReservable($separatedBooks[$page]);
 
             }
 
@@ -94,20 +107,36 @@
                 // separate books into groups of 5
                 $separatedBooks = array_chunk($books, 5);
 
-                $bookCount = count($separatedBooks[$page]);
+                //$bookCount = count($separatedBooks[$page]);
+                $bookCount = count($books);
 
                 display($separatedBooks[$page], $bookCount);
+                DropDownReservable($separatedBooks[$page]);
 
             }
 
         }
+        else {
+            $books = allBooks();
 
+            // separate books into groups of 5
+            $separatedBooks = array_chunk($books, 5);
+
+            $bookCount = count($separatedBooks[$page]);
+
+            display($separatedBooks[$page], $bookCount);
+            DropDownReservable($separatedBooks[$page]);
+
+
+        }
 
     }
 
 
     // function to display a group of 5 books
     function display($books, $bookCount) {
+
+        // ToDo : add dropdown with book titles
 
         // create table
         echo "<table border=1>";
@@ -157,19 +186,48 @@
     }
 
 
-    //function to either increment of decrement the page number
-    function updatePageNumber($option) {
+    function getUnreservedBooks($books) {
 
-        //get the page variable from URL
-        $pageNumber = $_GET['page'];
+        $bookTitles = array();
 
-        if ($option == '1') {
-            return $pageNumber + 1;
+        for ($i = 0; $i < count($books); $i++) {
+            $bookTitles[] = $books[$i][1];
+
         }
-        else if ($option == '-1') {
-            return $pageNumber - 1;
+
+        // create connection to database
+        $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
+
+        // SQL required for text box search
+        $searchQuerySQL = "SELECT BookTitle FROM Book WHERE Reserved = 'N' AND BookTitle IN '$bookTitles'; ";
+
+        // SQL query for text box search
+        $Result = mysqli_query($db, $searchQuerySQL);
+
+        // close connection to database
+        mysqli_close($db);
+
+        // if SQL query failed
+        if ($Result == false) {
+            return "Error Code 1 : SQL Query Error";
+
+        } // else SQL query success
+        else if ($Result == true){
+            // create empty array for queried books
+            $ReservableBooks = array();
+
+            // turn query result into usable array
+            while($row = mysqli_fetch_row($Result)) {
+                $ResultBooks[] = $row[0];
+
+            }
+
+            // return queried books
+            return $ReservableBooks;
+
         }
 
     }
+
 
 

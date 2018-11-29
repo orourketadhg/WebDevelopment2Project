@@ -42,7 +42,7 @@
 
 
     // function to get the dropdown menu options
-    function DropDownCategories() {
+    function DropDownCategoryList() {
 
         // create connection to database
         $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
@@ -116,7 +116,7 @@
 
 
     // function to show all books at the start of a page
-    function StartBooks() {
+    function allBooks() {
 
         // create connection to database
         $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
