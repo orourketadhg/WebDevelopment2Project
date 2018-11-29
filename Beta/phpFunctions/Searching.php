@@ -1,4 +1,6 @@
 <?php
+    include 'DisplayTable.php';
+
 
     // ToDo : Alter code to allow partial searches
 
@@ -10,7 +12,7 @@
             $TextResult = TextSearch($_POST['SearchBox']);
 
             if ($TextResult!= array()) {
-                print_r($TextResult);
+                Display($TextResult);
 
             }
 
@@ -20,7 +22,7 @@
             $DropDownResult = DropDownSearch($_POST['SearchCategory']);
 
             if ($DropDownResult!= array()) {
-                print_r($DropDownResult);
+                Display($DropDownResult);
 
             }
 
