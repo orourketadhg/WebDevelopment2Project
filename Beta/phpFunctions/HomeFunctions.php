@@ -47,6 +47,8 @@
 
     function pages() {
 
+        $page = $_GET['page'];
+
         echo "<form method='post'>";
 
         echo "<input type='submit' name='Previous' value='Previous'>";
@@ -54,28 +56,49 @@
 
         echo "</form>";
 
-        $page = $_GET['page'];
+        if (isset($_POST['Search']) && !empty($_POST['SearchBox'])){
+            $input = $_POST['SearchBox'];
 
-        if (isset($_POST['Previous']) && $_GET['page'] != 0) {
-            $page = updatePageNumber(-1);
+            $books = TextSearch($input);
+
+            if (is_string($books)) {
+                echo $books;
+
+            }
+            else if ($books == array()) {
+                echo "No Books Found";
+            }
+            else {
+                // separate books into groups of 5
+                $separatedBooks = array_chunk($books, 5);
+
+                $bookCount = count($separatedBooks[$page]);
+
+                display($separatedBooks[$page], $bookCount);
+
+            }
 
         }
-        else if (isset($_POST['Next']) && $_GET['maxPage'] != $page) {
-            $page = updatePageNumber(1);
+        else if (isset($_POST['Search']) && $_POST['SearchCategory'] != "Default" && empty($_POST['SearchBox'])) {
 
-        }
+            $input = $_POST['SearchCategory'];
 
+            $books = DropDownSearch($input);
 
-        if (isset($_GET['search']) == 'all') {
+            if ($books == array()) {
+                echo "Please a word or category to search";
 
-            $books = StartBooks();
+            }
+            else {
 
-            // separate books into groups of 5
-            $separatedBooks = array_chunk($books, 5);
+                // separate books into groups of 5
+                $separatedBooks = array_chunk($books, 5);
 
-            $bookCount = count($separatedBooks[$page]);
+                $bookCount = count($separatedBooks[$page]);
 
-            display($separatedBooks[$page], $bookCount);
+                display($separatedBooks[$page], $bookCount);
+
+            }
 
         }
 
