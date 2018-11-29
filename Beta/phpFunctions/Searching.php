@@ -146,7 +146,7 @@
             }
 
             // create Table of all books
-            splitBooks($Books);
+            return $Books;
 
         }
 

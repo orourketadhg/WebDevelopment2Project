@@ -18,6 +18,8 @@
         <a href="UserReservedBooks.php">My Reserved Books</a>
         <a href="Logout.php">Logout</a>
 
+        <?php pages();?>
+
         <form method="post">
 
             <div>

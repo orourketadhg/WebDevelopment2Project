@@ -2,7 +2,6 @@
 
     // ToDo : Add ability to change Pages via button clicks
     // ToDo : Add separate books in groups of books of 5 or less
-    // ToDo : Add tables to display books
     // ToDo : Get the search option
 
     include 'Searching.php';
@@ -44,6 +43,26 @@
     }
 
 
+    function pages() {
+
+        if ($_GET['search'] == 'all') {
+
+            $books = StartBooks();
+
+            // seperate books into groups of 5
+            $separatedBooks = array_chunk($books, 5);
+
+            $page = $_GET['page'];
+
+            $bookCount = count($separatedBooks[$page]);
+
+            display($separatedBooks[$page], $bookCount);
+
+        }
+
+    }
+
+
     // function to display a group of 5 books
     function display($books, $bookCount) {
 
@@ -53,17 +72,19 @@
         // create row for column headers
         echo "<tr>";
 
-        echo "ISBN";
-        echo "Title";
-        echo "Author";
-        echo "Edition";
-        echo "Year";
-        echo "Category";
-        echo "Reserved";
+        echo "<th>ISBN</th>";
+        echo "<th>Title</th>";
+        echo "<th>Author</th>";
+        echo "<th>Edition</th>";
+        echo "<th>Year</th>";
+        echo "<th>Category</th>";
+        echo "<th>Reserved</th>";
 
         echo "</tr>";
 
         for ($i = 0; $i < $bookCount; $i++) {
+
+            echo '<tr>';
 
             for ($j = 0; $j < 7; $j++) {
                 echo "<td>";
@@ -71,6 +92,8 @@
                 echo "</td>";
 
             }
+
+            echo '</tr>';
 
         }
 
