@@ -14,7 +14,7 @@
 
     <body>
 
-    <a href="UserPage.php?page=0">Home</a>
+    <a href="UserPage.php?page=0&maxPage=0&search=all">Home</a>
     <a href="Logout.php">Logout</a>
 
     </body>

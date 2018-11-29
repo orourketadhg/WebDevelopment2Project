@@ -4,6 +4,8 @@
     // ToDo : Add separate books in groups of books of 5 or less
     // ToDo : Get the search option
 
+    // change header to form link with new URL variables
+
     include 'Searching.php';
     include 'SessionCheck.php';
 
@@ -45,20 +47,38 @@
 
     function pages() {
 
-        if ($_GET['search'] == 'all') {
+        echo "<form method='post'>";
+
+        echo "<input type='submit' name='Previous' value='Previous'>";
+        echo "<input type='submit' name='Next' value='Next'>";
+
+        echo "</form>";
+
+        $page = $_GET['page'];
+
+        if (isset($_POST['Previous']) && $_GET['page'] != 0) {
+            $page = updatePageNumber(-1);
+
+        }
+        else if (isset($_POST['Next']) && $_GET['maxPage'] != $page) {
+            $page = updatePageNumber(1);
+
+        }
+
+
+        if (isset($_GET['search']) == 'all') {
 
             $books = StartBooks();
 
-            // seperate books into groups of 5
+            // separate books into groups of 5
             $separatedBooks = array_chunk($books, 5);
-
-            $page = $_GET['page'];
 
             $bookCount = count($separatedBooks[$page]);
 
             display($separatedBooks[$page], $bookCount);
 
         }
+
 
     }
 
@@ -120,10 +140,10 @@
         //get the page variable from URL
         $pageNumber = $_GET['page'];
 
-        if ($option == 1) {
+        if ($option == '1') {
             return $pageNumber + 1;
         }
-        else if ($option) {
+        else if ($option == '-1') {
             return $pageNumber - 1;
         }
 
