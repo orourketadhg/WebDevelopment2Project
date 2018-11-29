@@ -2,10 +2,9 @@
     // ToDo : Add functionality for next and previous 5 books in table
     // ToDo : Add ability to reserve book
 
-    include 'phpFunctions/SessionCheck.php';
-    include 'phpFunctions/DisplayTable.php';
+    include 'phpFunctions/HomeFunctions.php';
 
-    SessionCheck();
+    onLoad();
  ?>
 
 <html lang="en">
@@ -21,12 +20,11 @@
 
         <form method="post">
 
-            <?php Books();?>
             <div>
                 <label for="SearchBox">Search:</label>
                 <input type="text" name="SearchBox" id="SearchBox">
 
-                <?php  DropDown();?>
+                <?php DropDown();?>
 
             </div>
 
