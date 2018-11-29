@@ -28,7 +28,7 @@
 
             </div>
 
-            <input type="submit" name="Submit">
+            <input type="submit" name="Search">
 
         </form>
 

@@ -10,7 +10,7 @@
         $input = mysqli_real_escape_string($db, $input);
 
         // SQL required for text box search
-        $searchQuerySQL = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryID, Reserved FROM Book WHERE BookTitle LIKE '%$input%' OR Author LIKE '%$input%';";
+        $searchQuerySQL = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryDesc, Reserved FROM Book WHERE BookTitle JOIN Category USING (CategoryID) LIKE '%$input%' OR Author LIKE '%$input%';";
 
         // SQL query for text box search
         $Result = mysqli_query($db, $searchQuerySQL);
