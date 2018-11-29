@@ -1,5 +1,6 @@
 <?php
     include 'DisplayTable.php';
+    include 'ReserveBooks.php';
 
     // function to search either with text box or category
     function SearchType() {
@@ -9,7 +10,12 @@
             $TextResult = TextSearch($_POST['SearchBox']);
 
             if ($TextResult!= array()) {
+                ReserveDropDown($TextResult);
                 Display($TextResult);
+
+            }
+            else {
+                echo "No Books Found";
 
             }
 
@@ -19,9 +25,11 @@
             $DropDownResult = DropDownSearch($_POST['SearchCategory']);
 
             if ($DropDownResult!= array()) {
+                ReserveDropDown($DropDownResult);
                 Display($DropDownResult);
 
             }
+
 
         }
         // display all books
@@ -147,6 +155,7 @@
     }
 
 
+    // function to show all books at the start of a page
     function StartBooks() {
 
         if (!$_POST) {
@@ -182,8 +191,6 @@
                 Display($Books);
 
             }
-
-
 
         }
 
