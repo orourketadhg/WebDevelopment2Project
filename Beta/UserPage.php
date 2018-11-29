@@ -49,8 +49,6 @@
 
                         echo ' </select>';
 
-                        // get chosen drop down value
-                        $DropDownResult = $_POST['SearchCategory'];
 
                     ?>
 

@@ -79,14 +79,8 @@
         // SQL required to get dropdown menu items
         $dropdownCategoryList = "SELECT CategoryDesc FROM Category";
 
+        // SQL query to get category options
         $CategoriesResult = mysqli_query($db, $dropdownCategoryList);
-
-        $Categories = array();
-
-        //turn rows into a 1D array
-        While($row = mysqli_fetch_row($CategoriesResult)) {
-            $Categories[] = $row[0];
-        }
 
         // close connection to database
         mysqli_close($db);
@@ -95,7 +89,16 @@
         if ($CategoriesResult == false) {
             return "Error Code 3 : Query Error";
         }
+        // else query success
         else {
+            // empty array for categories
+            $Categories = array();
+
+            //turn rows into a 1D array
+            While($row = mysqli_fetch_row($CategoriesResult)) {
+                $Categories[] = $row[0];
+            }
+
             return $Categories;
 
         }
@@ -105,6 +108,38 @@
 
     // function to get the result of the drop down menu
     function DropDownSearch($input) {
+
+        // create connection to database
+        $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
+
+        // SQL required to get books by category
+        $CategoryQuerySQL = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryDesc, Reserved FROM Book JOIN Category USING (CategoryID)WHERE CategoryDesc = '$input'";
+
+        // SQL query for books by category
+        $CategoryQueryResult = mysqli_query($db, $CategoryQuerySQL);
+
+        // close connection to database
+        mysqli_close($db);
+
+        // if query failure
+        if ($CategoryQueryResult == false) {
+            return "Error Code 4 : Query Error";
+
+        }
+        // else query success
+        else {
+            // create empty array for books
+            $CategoryBooks = array();
+
+            // turn query into usable array of books
+            While($row = mysqli_fetch_row($CategoryQueryResult)) {
+                $CategoryBooks[] = $row;
+            }
+
+            // return array full of books by specified category
+            return $CategoryBooks;
+
+        }
 
     }
 
