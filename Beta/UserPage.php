@@ -26,8 +26,7 @@
                 <label for="SearchBox">Search:</label>
                 <input type="text" name="SearchBox" id="SearchBox">
 
-                    <?php  DropDown();?>
-
+                <?php  DropDown();?>
 
             </div>
 

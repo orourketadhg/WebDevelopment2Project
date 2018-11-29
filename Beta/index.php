@@ -28,6 +28,7 @@
                         session_start();
                         $_SESSION["LoggedIn"] = True;
                         $_SESSION['Username'] = $_POST['user'];
+                        $_SESSION['Page'] = 0;
 
                         header('Location: UserPage.php?page=0');
                     }

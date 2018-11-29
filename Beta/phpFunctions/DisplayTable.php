@@ -73,11 +73,13 @@
         // split books into groups of 5 or less than 5
         $pages = array_chunk($Books, 5);
 
+        PageButtons($pages);
+
         // get page variable
-        $PageNumber = $_GET['page'];
+        $PageNumber = $_SESSION['page'];
 
         // if the number of pages is greater than 1
-        if (count($pages) > 1) {
+        if ($_SESSION['page'] > 1) {
             // display table of books on page
             Display($pages[$PageNumber]);
 
@@ -94,8 +96,9 @@
     // function to search either with text box or category
     function Books() {
 
+
         // if TextBox is filled and Post occurs
-        if ($_POST && !empty($_POST['SearchBox'])){
+        if (isset($_POST['SearchBox']) && !empty($_POST['SearchBox'])){
             $TextResult = TextSearch($_POST['SearchBox']);
 
             if ($TextResult!= array()) {
@@ -104,7 +107,7 @@
 
         }
         // else if a category is selected and Post occurs
-        else if ($_POST && $_POST['SearchCategory'] != 'Default') {
+        else if (isset($_POST['SearchCategory']) && isset($_POST['SearchCategory']) != 'Default') {
             $DropDownResult = DropDownSearch($_POST['SearchCategory']);
 
             if ($DropDownResult!= array()) {
@@ -117,6 +120,29 @@
         // else display all books
         else {
             StartBooks();
+
+        }
+
+    }
+
+    function PageButtons($pageMax) {
+
+        echo '<form method="post">';
+
+        echo '<input type="submit" name="Next" value="Next">';
+        echo '<input type="submit" name="Previous" value="Previous">';
+
+        echo '</form>';
+
+        if ($_POST) {
+
+            if (isset($_POST['Next']) && $_SESSION['page'] != $pageMax) {
+                $_SESSION['page'] = $_SESSION['page'] + 1;
+
+            } else if (isset($_POST['Previous']) && $_SESSION['page'] != 0) {
+
+                $_SESSION['page'] = $_SESSION['page'] - 1;
+            }
 
         }
 
