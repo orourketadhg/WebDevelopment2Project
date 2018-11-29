@@ -1,6 +1,4 @@
 <?php
-    // ToDo : Add search by category
-    // ToDo : Add display table
     // ToDo : Add only 5 books per table
     // ToDo : Add functionality for next and previous 5 books in table
     // ToDo : Add ability to reserve book

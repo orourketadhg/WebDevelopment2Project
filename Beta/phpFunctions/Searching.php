@@ -1,7 +1,6 @@
 <?php
     include 'DisplayTable.php';
 
-
     // ToDo : Alter code to allow partial searches
 
     // function to search either with text box or category
@@ -26,6 +25,10 @@
 
             }
 
+        }
+        // display all books
+        else {
+            StartBooks();
         }
 
     }
@@ -140,6 +143,49 @@
 
             // return array full of books by specified category
             return $CategoryBooks;
+
+        }
+
+    }
+
+
+    function StartBooks() {
+
+        if (!$_POST) {
+
+            // create connection to database
+            $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
+
+            // SQL required to get all books
+            $BooksQuerySQL = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryDesc, Reserved FROM Book JOIN Category USING (CategoryID);";
+
+            // SQL query for all books
+            $BooksQueryResult = mysqli_query($db, $BooksQuerySQL);
+
+            // close connection to database
+            mysqli_close($db);
+
+            // if query failure
+            if ($BooksQueryResult == false) {
+                return "Error Code 1 : Query Error";
+
+            }
+            // else query success
+            else {
+                // create empty array for books
+                $Books = array();
+
+                // turn query into usable array of books
+                While($row = mysqli_fetch_row($BooksQueryResult)) {
+                    $Books[] = $row;
+                }
+
+                // create Table of all books
+                Display($Books);
+
+            }
+
+
 
         }
 
