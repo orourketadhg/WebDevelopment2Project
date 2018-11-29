@@ -1,8 +1,6 @@
 <?php
     include 'DisplayTable.php';
 
-    // ToDo : Alter code to allow partial searches
-
     // function to search either with text box or category
     function SearchType() {
 
@@ -44,7 +42,7 @@
         $input = mysqli_real_escape_string($db, $input);
 
         // SQL required for text box search
-        $searchQuerySQL = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryID, Reserved FROM Book WHERE BookTitle = '$input' OR Author = '$input';";
+        $searchQuerySQL = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryID, Reserved FROM Book WHERE BookTitle LIKE '%$input%' OR Author LIKE '%$input%';";
 
         // SQL query for text box search
         $Result = mysqli_query($db, $searchQuerySQL);
@@ -57,7 +55,7 @@
             return "Error Code 2 : SQL Query Error";
 
         } // else SQL query success
-        else {
+        else if ($Result == true){
             // create empty array for queried books
             $ResultBooks = array();
 
