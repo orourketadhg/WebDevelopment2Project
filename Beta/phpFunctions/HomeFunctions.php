@@ -60,13 +60,6 @@
 
         $page = $_GET['page'];
 
-        echo "<form method='post'>";
-
-        echo "<input type='submit' name='Previous' value='Previous'>";
-        echo "<input type='submit' name='Next' value='Next'>";
-
-        echo "</form>";
-
         if (isset($_POST['Search']) && !empty($_POST['SearchBox'])){
             $input = $_POST['SearchBox'];
 
@@ -87,7 +80,7 @@
                 $bookCount = count($books);
 
                 display($separatedBooks[$page], $bookCount);
-                DropDownReservable($separatedBooks[$page]);
+                //DropDownReservable($separatedBooks[$page]);
 
             }
 
@@ -111,7 +104,7 @@
                 $bookCount = count($books);
 
                 display($separatedBooks[$page], $bookCount);
-                DropDownReservable($separatedBooks[$page]);
+                //DropDownReservable($separatedBooks[$page]);
 
             }
 
@@ -125,8 +118,24 @@
             $bookCount = count($separatedBooks[$page]);
 
             display($separatedBooks[$page], $bookCount);
-            DropDownReservable($separatedBooks[$page]);
+            //DropDownReservable($separatedBooks[$page]);
 
+            $pagePlus = $_GET['page'] + 1;
+            $pageMinus = $_GET['page'] - 1;
+            $maxPage = getMaxPage($books) - 1;
+
+            if ($_GET['page'] == 0) {
+                echo "<a href='UserPage.php?page=$pagePlus&maxPage=$maxPage&search=all'>Next</a>";
+            }
+            else if ($_GET['page'] == $_GET['maxPage']) {
+                echo "<a href='UserPage.php?page=$pageMinus&maxPage=$maxPage&search=all'>Previous</a>";
+
+            }
+            else if ($_GET['page'] != $_GET['maxPage'] && $_GET['page'] != 0){
+                echo "<a href='UserPage.php?page=$pageMinus&maxPage=$maxPage&search=all'>Previous</a>";
+                echo "<a href='UserPage.php?page=$pagePlus&maxPage=$maxPage&search=all'>Next</a>";
+
+            }
 
         }
 

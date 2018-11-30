@@ -14,7 +14,7 @@
     </head>
 
     <body>
-        <a href="UserPage.php?page=0&maxPage=0&search=all&load=1">Home</a>
+        <a href="UserPage.php?page=0&maxPage=0&search=all">Home</a>
         <a href="UserReservedBooks.php">My Reserved Books</a>
         <a href="Logout.php">Logout</a>
 
