@@ -12,7 +12,9 @@
         }
         // else session is not logged in
         else {
-            header('Location: index.php');
+            $header = 'Location: index.php';
+
+            header($header);
 
         }
 

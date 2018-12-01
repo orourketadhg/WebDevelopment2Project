@@ -116,13 +116,13 @@
 
 
     // function to show all books at the start of a page
-    function allBooks() {
+    function allBooks($start_from, $limit) {
 
         // create connection to database
         $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
 
         // SQL required to get all books
-        $BooksQuerySQL = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryDesc, Reserved FROM Book JOIN Category USING (CategoryID);";
+        $BooksQuerySQL = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryDesc, Reserved FROM Book JOIN Category USING (CategoryID) LIMIT $start_from, $limit;";
 
         // SQL query for all books
         $BooksQueryResult = mysqli_query($db, $BooksQuerySQL);

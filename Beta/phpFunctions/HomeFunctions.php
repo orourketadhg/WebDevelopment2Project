@@ -1,9 +1,5 @@
 <?php
 
-    // ToDo : Add ability to change Pages via button clicks
-
-    // change header to form link with new URL variables
-
     include 'Searching.php';
     include 'SessionCheck.php';
 
@@ -56,94 +52,8 @@
 
     }
 
-    function pages() {
-
-        $page = $_GET['page'];
-
-        if (isset($_POST['Search']) && !empty($_POST['SearchBox'])){
-            $input = $_POST['SearchBox'];
-
-            $books = TextSearch($input);
-
-            if (is_string($books)) {
-                echo $books;
-
-            }
-            else if ($books == array()) {
-                echo "No Books Found";
-            }
-            else {
-                // separate books into groups of 5
-                $separatedBooks = array_chunk($books, 5);
-
-                //$bookCount = count($separatedBooks[$page]);
-                $bookCount = count($books);
-
-                display($separatedBooks[$page], $bookCount);
-                //DropDownReservable($separatedBooks[$page]);
-
-            }
-
-        }
-        else if (isset($_POST['Search']) && $_POST['SearchCategory'] != "Default" && empty($_POST['SearchBox'])) {
-
-            $input = $_POST['SearchCategory'];
-
-            $books = DropDownSearch($input);
-
-            if ($books == array()) {
-                echo "Please a word or category to search";
-
-            }
-            else {
-
-                // separate books into groups of 5
-                $separatedBooks = array_chunk($books, 5);
-
-                //$bookCount = count($separatedBooks[$page]);
-                $bookCount = count($books);
-
-                display($separatedBooks[$page], $bookCount);
-                //DropDownReservable($separatedBooks[$page]);
-
-            }
-
-        }
-        else {
-            $books = allBooks();
-
-            // separate books into groups of 5
-            $separatedBooks = array_chunk($books, 5);
-
-            $bookCount = count($separatedBooks[$page]);
-
-            display($separatedBooks[$page], $bookCount);
-            //DropDownReservable($separatedBooks[$page]);
-
-            $pagePlus = $_GET['page'] + 1;
-            $pageMinus = $_GET['page'] - 1;
-            $maxPage = getMaxPage($books) - 1;
-
-            if ($_GET['page'] == 0) {
-                echo "<a href='UserPage.php?page=$pagePlus&maxPage=$maxPage&search=all'>Next</a>";
-            }
-            else if ($_GET['page'] == $_GET['maxPage']) {
-                echo "<a href='UserPage.php?page=$pageMinus&maxPage=$maxPage&search=all'>Previous</a>";
-
-            }
-            else if ($_GET['page'] != $_GET['maxPage'] && $_GET['page'] != 0){
-                echo "<a href='UserPage.php?page=$pageMinus&maxPage=$maxPage&search=all'>Previous</a>";
-                echo "<a href='UserPage.php?page=$pagePlus&maxPage=$maxPage&search=all'>Next</a>";
-
-            }
-
-        }
-
-    }
-
-
     // function to display a group of 5 books
-    function display($books, $bookCount) {
+    function display($books) {
 
         // ToDo : add dropdown with book titles
 
@@ -163,7 +73,7 @@
 
         echo "</tr>";
 
-        for ($i = 0; $i < $bookCount; $i++) {
+        for ($i = 0; $i < count($books); $i++) {
 
             echo '<tr>';
 
@@ -183,56 +93,28 @@
     }
 
 
-    // function to decide on page numbering
-    function getMaxPage($Books) {
+    function pagination() {
 
-        // seperate books into groups of 5
-        $separatedBooks = array_chunk($Books, 5);
+        $pagePlus = $_GET['page'] + 1;
+        $pageMinus = $_GET['page'] - 1;
 
-        //return the number of groups as the max pages
-        return count($separatedBooks);
+        if ($_GET['page'] == 1) {
+            echo "<a href='UserPage.php?page=$pagePlus'>Next</a>";
 
-    }
-
-
-    function getUnreservedBooks($books) {
-
-        $bookTitles = array();
-
-        for ($i = 0; $i < count($books); $i++) {
-            $bookTitles[] = $books[$i][1];
+            display(allBooks(5 * ($_GET['page'] - 1) , 5));
 
         }
+        else if ($_GET['page'] == 3) {
+            echo "<a href='UserPage.php?page=$pageMinus'>Previous</a>";
 
-        // create connection to database
-        $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
+            display(allBooks( 5 * ($_GET['page'] - 1), 5));
 
-        // SQL required for text box search
-        $searchQuerySQL = "SELECT BookTitle FROM Book WHERE Reserved = 'N' AND BookTitle IN '$bookTitles'; ";
+        }
+        else {
+            echo "<a href='UserPage.php?page=$pageMinus'>Previous</a>";
+            echo "<a href='UserPage.php?page=$pagePlus'>Next</a>";
 
-        // SQL query for text box search
-        $Result = mysqli_query($db, $searchQuerySQL);
-
-        // close connection to database
-        mysqli_close($db);
-
-        // if SQL query failed
-        if ($Result == false) {
-            return "Error Code 1 : SQL Query Error";
-
-        } // else SQL query success
-        else if ($Result == true){
-            // create empty array for queried books
-            $ReservableBooks = array();
-
-            // turn query result into usable array
-            while($row = mysqli_fetch_row($Result)) {
-                $ResultBooks[] = $row[0];
-
-            }
-
-            // return queried books
-            return $ReservableBooks;
+            display(allBooks(5 * ($_GET['page'] - 1) , 5));
 
         }
 

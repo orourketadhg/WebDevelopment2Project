@@ -74,3 +74,47 @@
         }
 
     }
+
+
+    function getUnreservedBooks($books) {
+
+        $bookTitles = array();
+
+        for ($i = 0; $i < count($books); $i++) {
+            $bookTitles[] = $books[$i][1];
+
+        }
+
+        // create connection to database
+        $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
+
+        // SQL required for text box search
+        $searchQuerySQL = "SELECT BookTitle FROM Book WHERE Reserved = 'N' AND BookTitle IN '$bookTitles'; ";
+
+        // SQL query for text box search
+        $Result = mysqli_query($db, $searchQuerySQL);
+
+        // close connection to database
+        mysqli_close($db);
+
+        // if SQL query failed
+        if ($Result == false) {
+            return "Error Code 1 : SQL Query Error";
+
+        } // else SQL query success
+        else if ($Result == true){
+            // create empty array for queried books
+            $ReservableBooks = array();
+
+            // turn query result into usable array
+            while($row = mysqli_fetch_row($Result)) {
+                $ResultBooks[] = $row[0];
+
+            }
+
+            // return queried books
+            return $ReservableBooks;
+
+        }
+
+    }
