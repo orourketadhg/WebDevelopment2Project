@@ -122,13 +122,46 @@
 
             $bookCount = DropDownSearchCount($categoryKey);
 
+            $limit = ceil($bookCount / 5);
+
             if (isset($_GET['page'])) {
 
+                if ($_GET['page'] == 1) {
+                    display(DropDownSearch($categoryKey, 0, 5));
+
+                    echo "<a href='UserPage.php?page=$pagePlus&search=&SearchCategory=$categoryKey'>Next</a>";
+
+                }
+                else if ($_GET['page'] == $limit){
+                    display(DropDownSearch($categoryKey, 5 * ($_GET['page'] - 1), 5));
+
+                    echo "<a href='UserPage.php?page=$pageMinus&search=&SearchCategory=$categoryKey'>Previous</a>";
+
+                }
+                else {
+                    display(DropDownSearch($categoryKey, 5 * ($_GET['page'] - 1), 5));
+
+                    echo "<a href='UserPage.php?page=$pageMinus&search=&SearchCategory=$categoryKey'>Previous</a>";
+                    echo "<a href='UserPage.php?page=$pagePlus&search=&SearchCategory=$categoryKey'>Next</a>";
+
+                }
 
 
             }
             else {
-                display(DropDownSearch($categoryKey, 0, 5));
+                if ($bookCount > 0) {
+                    display(DropDownSearch($categoryKey, 0, 5));
+
+                    if ($bookCount > 5) {
+                        echo "<a href='UserPage.php?page=2&search=&SearchCategory=$categoryKey'>Next</a>";
+
+                    }
+
+                }
+                else {
+                    echo "No Books Found";
+
+                }
             }
 
         }
@@ -158,6 +191,7 @@
                 else if ($_GET['page'] == $limit){
 
                     display(TextSearch($searchKey, 5 * ($_GET['page'] - 1), 5));
+
                     echo "<a href='UserPage.php?page=$pageMinus&search=$searchKey&SearchCategory='>Previous</a>";
 
                 }
