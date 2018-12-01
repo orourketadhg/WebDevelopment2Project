@@ -1,5 +1,6 @@
 <?php
 
+
     // function to reserve a book
     function UnreserveBook($user, $ISBN) {
 
@@ -7,8 +8,8 @@
         $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB');
 
         // SQL required to unreserve a book
-        $ReserveBookSQl1 = "UPDATE Book SET Reserved = N WHERE ISBN = '$ISBN';";
-        $ReserveBookSQl2 = "DELETE * FROM Reserved WHERE Username = '$user' AND ISBN = '$ISBN';";
+        $ReserveBookSQl1 = "UPDATE `book` SET `Reserved` = 'N' WHERE `ISBN` = '$ISBN';";
+        $ReserveBookSQl2 = "DELETE FROM Reserved WHERE Username = '$user' AND ISBN = '$ISBN';";
 
         // Unreserve book SQL queries
         $SQL3Result = mysqli_query($db, $ReserveBookSQl1);
@@ -19,20 +20,14 @@
 
         // if SQL query error
         if(!$SQL4Result) {
-            return "Error Code 1 : SQL Query Error";
+            echo "Error Code 1 : SQL Query Error";
 
         }
         // else if SQL query error
         else if (!$SQL3Result) {
-            return "Error Code 2 : SQL Query Error";
+            echo "Error Code 2 : SQL Query Error";
 
         }
-        // else book is unreserved
-        else {
-            return "Unreserved Book";
-
-        }
-
 
     }
 

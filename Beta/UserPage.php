@@ -2,6 +2,7 @@
     // ToDo : Add ability to reserve book
 
     include 'phpFunctions/Pagination.php';
+    include 'phpFunctions/SessionCheck.php';
 
     SessionCheck();
  ?>
@@ -14,7 +15,7 @@
 
     <body>
         <a href="UserPage.php?page=1&search=all&SearchCategory=&Reserve=">Home</a>
-        <a href="UserReservedBooks.php">My Reserved Books</a>
+        <a href="UserReservedBooks.php?page=1&Unreserve=">My Reserved Books</a>
         <a href="Logout.php">Logout</a>
 
         <form action="UserPage.php?page=1&" method="get">

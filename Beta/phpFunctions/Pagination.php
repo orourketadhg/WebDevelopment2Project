@@ -1,8 +1,7 @@
 <?php
 
-    include 'Searching.php';
-    include 'SessionCheck.php';
-    include "ReserveBooks.php";
+    include 'SearchFunctions.php';
+    include "ReserveFunctions.php";
 
     // URL : UserPage.php?page=X&maxPage=X&search=X
 
@@ -114,7 +113,6 @@
             $pageMinus = $_GET['page'] - 1;
 
         }
-
 
         if (isset($_GET['Reserve']) && $_GET['Reserve'] != "") {
             ReserveBook($_GET['Reserve'], $_SESSION['Username']);
