@@ -97,6 +97,8 @@
 
         $reservedCount = GetUserReserved($user, 0, 15, 1);
 
+        $limit = ceil($reservedCount / 5);
+
         $pagePlus = $_GET['page'] + 1;
         $pageMinus = $_GET['page'] - 1;
 
@@ -110,9 +112,9 @@
             if ($_GET['page'] == 1) {
                 display(GetUserReserved($user, 5 * ($_GET['page'] - 1), 5));
 
-                echo "<a href=''>Next</a>";
+                echo "<a href='UserReservedBooks.php?page=$pagePlus&Unreserve='>Next</a>";
 
-            } else if ($_GET['page'] == 3) {
+            } else if ($_GET['page'] == $limit) {
                 display(GetUserReserved($user, 5 * ($_GET['page'] - 1), 5));
 
                 echo "<a href='UserReservedBooks.php?page=$pageMinus&Unreserve='>Previous</a>";

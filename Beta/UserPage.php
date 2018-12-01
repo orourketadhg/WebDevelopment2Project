@@ -1,5 +1,8 @@
 <?php
-    // ToDo : Add ability to reserve book
+    // ToDo : Mass Comment
+    // ToDo : CSS
+    // ToDo : Write Test Cases
+    // ToDo : Clean up of redundant code
 
     include 'phpFunctions/Pagination.php';
     include 'phpFunctions/SessionCheck.php';

@@ -1,6 +1,5 @@
 <?php
 
-
     // function to reserve a book
     function UnreserveBook($user, $ISBN) {
 
