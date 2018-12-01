@@ -11,11 +11,6 @@
 
         $Categories = DropDownCategoryList();
 
-        // handling default load value
-        if (!$_POST) {
-            $_POST['SearchCategory'] = '';
-        }
-
         // create drop down
         echo '<label for="CategoryBox">Category:</label>';
         echo '<select name="SearchCategory" id="CategoryBox">';
@@ -106,23 +101,38 @@
             if ($_GET['page'] == 1) {
                 display(allBooks(5 * ($_GET['page'] - 1), 5));
 
-                echo "<a href='UserPage.php?page=$pagePlus&search=all'>Next</a>";
+                echo "<a href='UserPage.php?page=$pagePlus&search=all&SearchCategory='>Next</a>";
 
             } else if ($_GET['page'] == 3) {
                 display(allBooks(5 * ($_GET['page'] - 1), 5));
 
-                echo "<a href='UserPage.php?page=$pageMinus&search=all'>Previous</a>";
+                echo "<a href='UserPage.php?page=$pageMinus&search=all&SearchCategory='>Previous</a>";
 
             } else {
                 display(allBooks(5 * ($_GET['page'] - 1), 5));
 
-                echo "<a href='UserPage.php?page=$pageMinus&search=all'>Previous</a>";
-                echo "<a href='UserPage.php?page=$pagePlus&search=all'>Next</a>";
+                echo "<a href='UserPage.php?page=$pageMinus&search=all&SearchCategory='>Previous</a>";
+                echo "<a href='UserPage.php?page=$pagePlus&search=all&SearchCategory='>Next</a>";
 
             }
 
         }
-        else if ($_GET['search'] != 'all') {
+        else if (($_GET['SearchCategory'] != '--+Choose+a+Category+--' && $_GET['SearchCategory'] != '') && $_GET['search'] == '') {
+            $categoryKey = $_GET['SearchCategory'];
+
+            $bookCount = DropDownSearchCount($categoryKey);
+
+            if (isset($_GET['page'])) {
+
+
+
+            }
+            else {
+                display(DropDownSearch($categoryKey, 0, 5));
+            }
+
+        }
+        else if ($_GET['search'] != 'all' && $_GET['search'] != '') {
 
             $searchKey = $_GET['search'];
 
@@ -142,20 +152,20 @@
                 if ($_GET['page'] == 1) {
                     display(TextSearch($searchKey, 0, 5));
 
-                    echo "<a href='UserPage.php?page=$pagePlus&search=$searchKey'>Next</a>";
+                    echo "<a href='UserPage.php?page=$pagePlus&search=$searchKey&SearchCategory='>Next</a>";
 
                 }
                 else if ($_GET['page'] == $limit){
 
                     display(TextSearch($searchKey, 5 * ($_GET['page'] - 1), 5));
-                    echo "<a href='UserPage.php?page=$pageMinus&search=$searchKey'>Previous</a>";
+                    echo "<a href='UserPage.php?page=$pageMinus&search=$searchKey&SearchCategory='>Previous</a>";
 
                 }
                 else {
                     display(TextSearch($searchKey, 5 * ($_GET['page'] - 1), 5));
 
-                    echo "<a href='UserPage.php?page=$pageMinus&search=$searchKey'>Previous</a>";
-                    echo "<a href='UserPage.php?page=$pagePlus&search=$searchKey'>Next</a>";
+                    echo "<a href='UserPage.php?page=$pageMinus&search=$searchKey&SearchCategory='>Previous</a>";
+                    echo "<a href='UserPage.php?page=$pagePlus&search=$searchKey&SearchCategory='>Next</a>";
 
                 }
 
@@ -166,7 +176,7 @@
                     display(TextSearch($searchKey, 0, 5));
 
                     if ($bookCount > 5) {
-                        echo "<a href='UserPage.php?page=2&search=$searchKey'>Next</a>";
+                        echo "<a href='UserPage.php?page=2&search=$searchKey&SearchCategory='>Next</a>";
 
                     }
 

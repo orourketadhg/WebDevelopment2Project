@@ -13,7 +13,7 @@
     </head>
 
     <body>
-        <a href="UserPage.php?page=1&search=all">Home</a>
+        <a href="UserPage.php?page=1&search=all&SearchCategory=">Home</a>
         <a href="UserReservedBooks.php">My Reserved Books</a>
         <a href="Logout.php">Logout</a>
 
@@ -22,12 +22,16 @@
             <?php pagination();?>
 
             <div>
+                <?php DropDownCategories(); ?>
+
                 <label for="SearchText">Search:</label>
                 <input type="search" name="search" id="SearchText">
 
             </div>
 
-            <input type="submit" name="Submit">
+            <input type="submit" name="SubmitText">
+
+
 
         </form>
 

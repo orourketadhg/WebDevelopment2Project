@@ -77,6 +77,7 @@
             return count($ResultBooks);
 
         }
+
     }
 
 
@@ -148,6 +149,41 @@
 
             // return array full of books by specified category
             return $CategoryBooks;
+
+        }
+
+    }
+
+    function DropDownSearchCount($input) {
+        // create connection to database
+        $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
+
+        // SQL required to get books by category
+        $CategoryQuerySQL = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryDesc, Reserved FROM Book JOIN Category USING (CategoryID)WHERE CategoryDesc = '$input';";
+
+        // SQL query for books by category
+        $CategoryQueryResult = mysqli_query($db, $CategoryQuerySQL);
+
+        // close connection to database
+        mysqli_close($db);
+
+        // if query failure
+        if ($CategoryQueryResult == false) {
+            return "Error Code 4 : Query Error";
+
+        }
+        // else query success
+        else {
+            // create empty array for books
+            $CategoryBooks = array();
+
+            // turn query into usable array of books
+            While($row = mysqli_fetch_row($CategoryQueryResult)) {
+                $CategoryBooks[] = $row;
+            }
+
+            // return array full of books by specified category
+            return count ($CategoryBooks);
 
         }
 
