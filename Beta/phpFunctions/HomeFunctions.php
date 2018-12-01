@@ -95,26 +95,88 @@
 
     function pagination() {
 
-        $pagePlus = $_GET['page'] + 1;
-        $pageMinus = $_GET['page'] - 1;
-
-        if ($_GET['page'] == 1) {
-            echo "<a href='UserPage.php?page=$pagePlus'>Next</a>";
-
-            display(allBooks(5 * ($_GET['page'] - 1) , 5));
+        if (isset($_GET['page'])) {
+            $pagePlus = $_GET['page'] + 1;
+            $pageMinus = $_GET['page'] - 1;
 
         }
-        else if ($_GET['page'] == 3) {
-            echo "<a href='UserPage.php?page=$pageMinus'>Previous</a>";
 
-            display(allBooks( 5 * ($_GET['page'] - 1), 5));
+        if ($_GET['search'] == 'all') {
+
+            if ($_GET['page'] == 1) {
+                display(allBooks(5 * ($_GET['page'] - 1), 5));
+
+                echo "<a href='UserPage.php?page=$pagePlus&search=all'>Next</a>";
+
+            } else if ($_GET['page'] == 3) {
+                display(allBooks(5 * ($_GET['page'] - 1), 5));
+
+                echo "<a href='UserPage.php?page=$pageMinus&search=all'>Previous</a>";
+
+            } else {
+                display(allBooks(5 * ($_GET['page'] - 1), 5));
+
+                echo "<a href='UserPage.php?page=$pageMinus&search=all'>Previous</a>";
+                echo "<a href='UserPage.php?page=$pagePlus&search=all'>Next</a>";
+
+            }
 
         }
-        else {
-            echo "<a href='UserPage.php?page=$pageMinus'>Previous</a>";
-            echo "<a href='UserPage.php?page=$pagePlus'>Next</a>";
+        else if ($_GET['search'] != 'all') {
 
-            display(allBooks(5 * ($_GET['page'] - 1) , 5));
+            $searchKey = $_GET['search'];
+
+            if (substr_count($searchKey, '+') > 0) {
+                $checkedKey = str_replace('+', ' ', $searchKey);
+
+                $searchKey = $checkedKey;
+
+            }
+
+            $bookCount = TextSearchCount($searchKey);
+
+            $limit = ceil($bookCount / 5);
+
+            if (isset($_GET['page'])) {
+
+                if ($_GET['page'] == 1) {
+                    display(TextSearch($searchKey, 0, 5));
+
+                    echo "<a href='UserPage.php?page=$pagePlus&search=$searchKey'>Next</a>";
+
+                }
+                else if ($_GET['page'] == $limit){
+
+                    display(TextSearch($searchKey, 5 * ($_GET['page'] - 1), 5));
+                    echo "<a href='UserPage.php?page=$pageMinus&search=$searchKey'>Previous</a>";
+
+                }
+                else {
+                    display(TextSearch($searchKey, 5 * ($_GET['page'] - 1), 5));
+
+                    echo "<a href='UserPage.php?page=$pageMinus&search=$searchKey'>Previous</a>";
+                    echo "<a href='UserPage.php?page=$pagePlus&search=$searchKey'>Next</a>";
+
+                }
+
+            }
+            else {
+
+                if ($bookCount > 0) {
+                    display(TextSearch($searchKey, 0, 5));
+
+                    if ($bookCount > 5) {
+                        echo "<a href='UserPage.php?page=2&search=$searchKey'>Next</a>";
+
+                    }
+
+                }
+                else {
+                    echo "No Books Found";
+
+                }
+
+            }
 
         }
 

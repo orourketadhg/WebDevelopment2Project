@@ -13,21 +13,21 @@
     </head>
 
     <body>
-        <a href="UserPage.php?page=1">Home</a>
+        <a href="UserPage.php?page=1&search=all">Home</a>
         <a href="UserReservedBooks.php">My Reserved Books</a>
         <a href="Logout.php">Logout</a>
 
-        <form method="post">
+        <form action="UserPage.php?page=1&" method="get">
 
             <?php pagination();?>
 
             <div>
                 <label for="SearchText">Search:</label>
-                <input type="text" name="SearchBox" id="SearchText">
+                <input type="search" name="search" id="SearchText">
 
             </div>
 
-            <input type="submit" name="Search">
+            <input type="submit" name="Submit">
 
         </form>
 

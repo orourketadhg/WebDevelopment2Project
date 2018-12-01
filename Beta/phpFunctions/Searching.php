@@ -1,7 +1,47 @@
 <?php
 
     // function get books from search box
-    function TextSearch($input) {
+    function TextSearch($input, $start_from, $limit) {
+
+        // create connection to database
+        $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
+
+        // real escape string check
+        $input = mysqli_real_escape_string($db, $input);
+
+        // SQL required for text box search
+        $searchQuerySQL = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryDesc, Reserved FROM Book JOIN Category USING (CategoryID) WHERE BookTitle LIKE '%$input%' OR Author LIKE '%$input%' LIMIT $start_from, $limit;;";
+
+        // SQL query for text box search
+        $Result = mysqli_query($db, $searchQuerySQL);
+
+        // close connection to database
+        mysqli_close($db);
+
+        // if SQL query failed
+        if ($Result == false) {
+            return "Error Code 2 : SQL Query Error";
+
+        } // else SQL query success
+        else if ($Result == true){
+            // create empty array for queried books
+            $ResultBooks = array();
+
+            // turn query result into usable array
+            while($row = mysqli_fetch_row($Result)) {
+                $ResultBooks[] = $row;
+
+            }
+
+            // return queried books
+            return $ResultBooks;
+
+        }
+
+    }
+
+
+    function TextSearchCount ($input) {
 
         // create connection to database
         $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
@@ -34,10 +74,9 @@
             }
 
             // return queried books
-            return $ResultBooks;
+            return count($ResultBooks);
 
         }
-
     }
 
 
@@ -78,13 +117,13 @@
 
 
     // function to get the result of the drop down menu
-    function DropDownSearch($input) {
+    function DropDownSearch($input, $start_from, $limit) {
 
         // create connection to database
         $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
 
         // SQL required to get books by category
-        $CategoryQuerySQL = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryDesc, Reserved FROM Book JOIN Category USING (CategoryID)WHERE CategoryDesc = '$input'";
+        $CategoryQuerySQL = "SELECT ISBN, BookTitle, Author, Edition, Year, CategoryDesc, Reserved FROM Book JOIN Category USING (CategoryID)WHERE CategoryDesc = '$input' LIMIT $start_from, $limit;";
 
         // SQL query for books by category
         $CategoryQueryResult = mysqli_query($db, $CategoryQuerySQL);
