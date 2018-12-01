@@ -14,7 +14,7 @@
 
     <body>
 
-    <a href="UserPage.php?page=1">Home</a>
+    <a href="UserPage.php?page=1&search=all&SearchCategory=&Reserve=">Home</a>
     <a href="Logout.php">Logout</a>
 
     </body>

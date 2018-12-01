@@ -1,7 +1,7 @@
 <?php
     // ToDo : Add ability to reserve book
 
-    include 'phpFunctions/HomeFunctions.php';
+    include 'phpFunctions/Pagination.php';
 
     SessionCheck();
  ?>
@@ -13,21 +13,21 @@
     </head>
 
     <body>
-        <a href="UserPage.php?page=1&search=all&SearchCategory=">Home</a>
+        <a href="UserPage.php?page=1&search=all&SearchCategory=&Reserve=">Home</a>
         <a href="UserReservedBooks.php">My Reserved Books</a>
         <a href="Logout.php">Logout</a>
 
         <form action="UserPage.php?page=1&" method="get">
 
-            <div>
+            <div id="searching">
                 <?php DropDownCategories(); ?>
 
                 <label for="SearchText">Search:</label>
                 <input type="search" name="search" id="SearchText">
 
-            </div>
+                <input type="submit" name="SubmitText">
 
-            <input type="submit" name="SubmitText">
+            </div>
 
             <?php pagination();?>
 
