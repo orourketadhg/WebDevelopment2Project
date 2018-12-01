@@ -177,7 +177,7 @@
                             // if user created
                             if ($creationCheck == "User Created") {
                                 // testing result
-                                echo $creationCheck;
+                                header('Location : index.php');
 
                             }
                             // else user was not created

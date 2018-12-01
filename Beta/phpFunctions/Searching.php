@@ -41,6 +41,7 @@
     }
 
 
+    // function to return the number of books in a search
     function TextSearchCount ($input) {
 
         // create connection to database
@@ -73,7 +74,7 @@
 
             }
 
-            // return queried books
+            // return number of books found by searchKey
             return count($ResultBooks);
 
         }
@@ -154,6 +155,8 @@
 
     }
 
+
+    // function to get the number of books in a category
     function DropDownSearchCount($input) {
         // create connection to database
         $db = mysqli_connect('localhost:3307', 'root', '', 'LibraryDB') or die(mysqli_error($db));
@@ -182,7 +185,7 @@
                 $CategoryBooks[] = $row;
             }
 
-            // return array full of books by specified category
+            // return number of books in category
             return count ($CategoryBooks);
 
         }

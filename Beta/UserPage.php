@@ -19,8 +19,6 @@
 
         <form action="UserPage.php?page=1&" method="get">
 
-            <?php pagination();?>
-
             <div>
                 <?php DropDownCategories(); ?>
 
@@ -31,7 +29,7 @@
 
             <input type="submit" name="SubmitText">
 
-
+            <?php pagination();?>
 
         </form>
 

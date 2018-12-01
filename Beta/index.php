@@ -24,12 +24,14 @@
                     //Test the inputs
                     $Result = TestInput();
 
+                    // if result is
                     if ($Result == "Logging in") {
+
                         session_start();
                         $_SESSION["LoggedIn"] = True;
                         $_SESSION['Username'] = $_POST['user'];
 
-                        header('Location: UserPage.php?page=1search=all');
+                        header('Location: UserPage.php?page=1&search=all&SearchCategory=');
                     }
                     else {
                         echo "<p id='Error'>$Result</p>";
