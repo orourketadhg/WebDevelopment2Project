@@ -12,12 +12,13 @@
 <html lang="en">
     <head>
         <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="Assets/CSS/Style.css">
 
     </head>
 
     <body>
 
-        <form method="post">
+        <form method="post" id="LoginForm">
 
             <div id="ErrorCodes">
                 <?php
@@ -51,8 +52,8 @@
 
             </div>
 
-            <input type="submit" value="Login">
-            <a href="Register.php">Register</a>
+            <input type="submit" value="Login" id="button">
+            <a id="link" href="Register.php">Register</a>
 
         </form>
 

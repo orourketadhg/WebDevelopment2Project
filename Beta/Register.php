@@ -18,10 +18,11 @@
 <html lang="en">
     <head>
         <title>Registration</title>
+        <link rel="stylesheet" type="text/css" href="Assets/CSS/Style.css">
     </head>
 
     <body>
-        <form method="post">
+        <form id="RegisterForm" method="post">
 
             <div id="RegistrationInputFields">
 
@@ -66,38 +67,58 @@
                 <label for="user">Username:</label>
                 <input type="text" name="user" id="user" >
 
+                <br>
+
                 <label for="Password1">Password:</label>
                 <input type="text" name="password1" id="Password1">
+
+                <br>
 
                 <label for="Password2">confirm password:</label>
                 <input type="text" name="password2" id="Password2">
 
+                <br>
+
                 <label for="Firstname">Firstname:</label>
                 <input type="text" name="firstname" id="Firstname">
+
+                <br>
 
                 <label for="Surname">Surname:</label>
                 <input type="text" name="surname" id="Surname">
 
+                <br>
+
                 <label for="Address1">Address1:</label>
                 <input type="text" name="address1" id="Address1">
+
+                <br>
 
                 <label for="Address2">Address2:</label>
                 <input type="text" name="address2" id="Address2">
 
+                <br>
+
                 <label for="City">City:</label>
                 <input type="text" name="city" id="City">
+
+                <br>
 
                 <label for="Telephone"> Telephone Number:</label>
                 <input type="text" name="telephone" id="Telephone">
 
+                <br>
+
                 <label for="Mobile">Mobile Number:
                 <input type="text" name="mobile" id="Mobile">
 
+                    <br>
+
             </div>
 
-            <input type="submit" value="Register">
+            <input id="button" type="submit" value="Register">
 
-            <a href="index.php">Cancel</a>
+            <a id="link" href="index.php">Cancel</a>
 
         </form>
 
