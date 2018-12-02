@@ -6,15 +6,12 @@ body {
 
 }
 
-#LoginForm, #LogoutForm {
+#LoginForm, #LogoutForm, #RegisterForm {
     padding-left: 30%;
     padding-top: 10%;
     padding-bottom: 10%;
     background-color: floralwhite;
     border-style: solid;
-}
-
-#RegisterForm {
 }
 
 #button {
