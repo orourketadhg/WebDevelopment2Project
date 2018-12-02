@@ -31,12 +31,18 @@
 ?>
 
 <html>
-    <form method="post">
-        <input type="submit" value="Continue" name="destroySession">
+    <head>
+        <title>Logout</title>
+        <link rel="stylesheet" type="text/css" href="Assets/CSS/Style.css">
+    </head>
 
-        <!--User cancels logout - Test Case 2 -->
-        <a href="UserPage.php?page=1&search=all&SearchCategory=&Reserve=">Cancel</a>
+    <body >
+        <form id="LogoutForm" method="post">
+            <input id="button" type="submit" value="Continue" name="destroySession">
 
-    </form>
+            <!--User cancels logout - Test Case 2 -->
+            <a id="link" href="UserPage.php?page=1&search=all&SearchCategory=&Reserve=">Cancel</a>
 
+        </form>
+    </body>
 </html>
