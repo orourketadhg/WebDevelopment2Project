@@ -22,6 +22,11 @@
     </head>
 
     <body>
+        <header>
+            Library prototype
+        </header>
+
+
         <form id="RegisterForm" method="post">
 
             <div id="RegistrationInputFields">
@@ -121,6 +126,10 @@
             <a id="link" href="index.php">Cancel</a>
 
         </form>
+
+        <footer>
+            Created By Tadhg O'Rourke - C17403574 - Web Development 2 Project
+        </footer>
 
     </body>
 

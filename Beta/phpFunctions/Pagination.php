@@ -126,18 +126,18 @@
             if ($_GET['page'] == 1) {
                 display(allBooks(5 * ($_GET['page'] - 1), 5));
 
-                echo "<a href='UserPage.php?page=$pagePlus&search=all&SearchCategory=&Reserve='>Next</a>";
+                echo "<a id='link' href='UserPage.php?page=$pagePlus&search=all&SearchCategory=&Reserve='>Next</a>";
 
             } else if ($_GET['page'] == 3) {
                 display(allBooks(5 * ($_GET['page'] - 1), 5));
 
-                echo "<a href='UserPage.php?page=$pageMinus&search=all&SearchCategory=&Reserve='>Previous</a>";
+                echo "<a id='link' href='UserPage.php?page=$pageMinus&search=all&SearchCategory=&Reserve='>Previous</a>";
 
             } else {
                 display(allBooks(5 * ($_GET['page'] - 1), 5));
 
-                echo "<a href='UserPage.php?page=$pageMinus&search=all&SearchCategory=&Reserve='>Previous</a>";
-                echo "<a href='UserPage.php?page=$pagePlus&search=all&SearchCategory=&Reserve='>Next</a>";
+                echo "<a id='link' href='UserPage.php?page=$pageMinus&search=all&SearchCategory=&Reserve='>Previous</a>";
+                echo "<a id='link' href='UserPage.php?page=$pagePlus&search=all&SearchCategory=&Reserve='>Next</a>";
 
             }
 
@@ -154,20 +154,20 @@
                 if ($_GET['page'] == 1) {
                     display(DropDownSearch($categoryKey, 0, 5));
 
-                    echo "<a href='UserPage.php?page=$pagePlus&search=&SearchCategory=$categoryKey&Reserve='>Next</a>";
+                    echo "<a id='link' href='UserPage.php?page=$pagePlus&search=&SearchCategory=$categoryKey&Reserve='>Next</a>";
 
                 }
                 else if ($_GET['page'] == $limit){
                     display(DropDownSearch($categoryKey, 5 * ($_GET['page'] - 1), 5));
 
-                    echo "<a href='UserPage.php?page=$pageMinus&search=&SearchCategory=$categoryKey&Reserve='>Previous</a>";
+                    echo "<a id='link' href='UserPage.php?page=$pageMinus&search=&SearchCategory=$categoryKey&Reserve='>Previous</a>";
 
                 }
                 else {
                     display(DropDownSearch($categoryKey, 5 * ($_GET['page'] - 1), 5));
 
-                    echo "<a href='UserPage.php?page=$pageMinus&search=&SearchCategory=$categoryKey&Reserve='>Previous</a>";
-                    echo "<a href='UserPage.php?page=$pagePlus&search=&SearchCategory=$categoryKey&Reserve='>Next</a>";
+                    echo "<a id='link' href='UserPage.php?page=$pageMinus&search=&SearchCategory=$categoryKey&Reserve='>Previous</a>";
+                    echo "<a id='link' href='UserPage.php?page=$pagePlus&search=&SearchCategory=$categoryKey&Reserve='>Next</a>";
 
                 }
 
@@ -178,7 +178,7 @@
                     display(DropDownSearch($categoryKey, 0, 5));
 
                     if ($bookCount > 5) {
-                        echo "<a href='UserPage.php?page=2&search=&SearchCategory=$categoryKey&Reserve='>Next</a>";
+                        echo "<a id='link' href='UserPage.php?page=2&search=&SearchCategory=$categoryKey&Reserve='>Next</a>";
 
                     }
 
@@ -210,21 +210,21 @@
                 if ($_GET['page'] == 1) {
                     display(TextSearch($searchKey, 0, 5));
 
-                    echo "<a href='UserPage.php?page=$pagePlus&search=$searchKey&SearchCategory=&Reserve='>Next</a>";
+                    echo "<a id='link' href='UserPage.php?page=$pagePlus&search=$searchKey&SearchCategory=&Reserve='>Next</a>";
 
                 }
                 else if ($_GET['page'] == $limit){
 
                     display(TextSearch($searchKey, 5 * ($_GET['page'] - 1), 5));
 
-                    echo "<a href='UserPage.php?page=$pageMinus&search=$searchKey&SearchCategory=&Reserve='>Previous</a>";
+                    echo "<a id='link' href='UserPage.php?page=$pageMinus&search=$searchKey&SearchCategory=&Reserve='>Previous</a>";
 
                 }
                 else {
                     display(TextSearch($searchKey, 5 * ($_GET['page'] - 1), 5));
 
-                    echo "<a href='UserPage.php?page=$pageMinus&search=$searchKey&SearchCategory=&Reserve='>Previous</a>";
-                    echo "<a href='UserPage.php?page=$pagePlus&search=$searchKey&SearchCategory=&Reserve='>Next</a>";
+                    echo "<a id='link' href='UserPage.php?page=$pageMinus&search=$searchKey&SearchCategory=&Reserve='>Previous</a>";
+                    echo "<a id='link' href='UserPage.php?page=$pagePlus&search=$searchKey&SearchCategory=&Reserve='>Next</a>";
 
                 }
 

@@ -105,6 +105,8 @@
         if (isset($_GET['Unreserve']) && $_GET['Unreserve'] != "") {
             UnreserveBook($user, $_GET['Unreserve']);
 
+            //header('Location : UserReservedBooks.php?page=$1&Unreserve=');
+
         }
 
         if ($reservedCount > 5) {
@@ -112,18 +114,18 @@
             if ($_GET['page'] == 1) {
                 display(GetUserReserved($user, 5 * ($_GET['page'] - 1), 5));
 
-                echo "<a href='UserReservedBooks.php?page=$pagePlus&Unreserve='>Next</a>";
+                echo "<a id=\"link\" href='UserReservedBooks.php?page=$pagePlus&Unreserve='>Next</a>";
 
             } else if ($_GET['page'] == $limit) {
                 display(GetUserReserved($user, 5 * ($_GET['page'] - 1), 5));
 
-                echo "<a href='UserReservedBooks.php?page=$pageMinus&Unreserve='>Previous</a>";
+                echo "<a id=\"link\" href='UserReservedBooks.php?page=$pageMinus&Unreserve='>Previous</a>";
 
             } else {
                 display(GetUserReserved($user, 5 * ($_GET['page'] - 1), 5));
 
-                echo "<a href='UserReservedBooks.php?page=$pageMinus&Unreserve='>Previous</a>";
-                echo "<a href='UserReservedBooks.php?page=$pagePlus&Unreserve='>Next</a>";
+                echo "<a id=\"link\" href='UserReservedBooks.php?page=$pageMinus&Unreserve='>Previous</a>";
+                echo "<a id=\"link\" href='UserReservedBooks.php?page=$pagePlus&Unreserve='>Next</a>";
 
             }
 
@@ -133,7 +135,7 @@
 
         }
         else {
-            echo "You have No Reserved Books";
+            echo "<p id='reserveError'>You have No Reserved Books</p>";
 
         }
 

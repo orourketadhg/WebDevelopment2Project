@@ -6,12 +6,13 @@ body {
 
 }
 
-#LoginForm, #LogoutForm, #RegisterForm {
+#LoginForm, #LogoutForm, #RegisterForm, #Reserving {
     padding-left: 30%;
     padding-top: 10%;
     padding-bottom: 10%;
     background-color: floralwhite;
     border-style: solid;
+
 }
 
 #button {
@@ -20,7 +21,7 @@ body {
     padding-bottom: 10px;
     padding-left: 20px;
     padding-right: 20px;
-    border: none;
+    border: solid;
     display: inline-block;
     background-color: darkcyan;
     color: white;
@@ -44,6 +45,8 @@ body {
     background-color: darkcyan;
     color: white;
     text-decoration: none;
+    border: solid black;
+
 }
 
 #link:hover, #register:active {
@@ -107,4 +110,9 @@ body {
 
 #Mobile {
     margin-left: 26px;
+}
+
+#LogoutTitle {
+    display: inline-block;
+
 }

@@ -18,6 +18,10 @@
 
     <body>
 
+        <header id="header">
+            <p>Library prototype</p>
+        </header>
+
         <form method="post" id="LoginForm">
 
             <div id="ErrorCodes">
@@ -56,6 +60,10 @@
             <a id="link" href="Register.php">Register</a>
 
         </form>
+
+        <footer>
+            Created By Tadhg O'Rourke - C17403574 - Web Development 2 Project
+        </footer>
 
     </body>
 </html>

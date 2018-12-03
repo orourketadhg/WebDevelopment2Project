@@ -37,12 +37,25 @@
     </head>
 
     <body >
+
+        <header>
+            Library prototype
+        </header>
+
         <form id="LogoutForm" method="post">
+
+            <h2 id="LogoutTitle"> Logout : </h2>
+
             <input id="button" type="submit" value="Continue" name="destroySession">
 
             <!--User cancels logout - Test Case 2 -->
             <a id="link" href="UserPage.php?page=1&search=all&SearchCategory=&Reserve=">Cancel</a>
 
         </form>
+
+        <footer>
+            Created By Tadhg O'Rourke - C17403574 - Web Development 2 Project
+        </footer>
+
     </body>
 </html>
